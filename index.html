@@ -3,9 +3,6 @@
 <head>
 <title>Mimi's Cozy Corner</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-.hero-buttons{
-display:flex;
-gap:20px;
 .hero-buttons button{
 padding:16px 30px;
 font-size:18px;
@@ -14,7 +11,12 @@ border-radius:12px;
 cursor:pointer;
 background:linear-gradient(90deg,#FF2E88,#8B5CF6,#22D3EE);
 color:white;
-transition:.3s;
+transition:0.3s;
+}
+
+.hero-buttons button:hover{
+transform:scale(1.08);
+box-shadow:0 0 15px #FF2E88,0 0 30px #8B5CF6,0 0 45px #22D3EE;
 }
 
 .hero-buttons button:hover{

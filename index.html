@@ -1,108 +1,202 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>Mimi's Cozy Corner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
-font-family: Arial;
-background:#f6efe8;
-color:#3d2f23;
-text-align:center;
 margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#020617;
+color:#F9FAFB;
+text-align:center;
+overflow-x:hidden;
 }
 
-header{
-background:#e8d8c7;
-padding:30px;
-}
+/* NAVBAR */
 
 nav{
-background:#d9c5b1;
+position:fixed;
+top:0;
+width:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(12px);
 padding:15px;
+z-index:10;
 }
 
 nav a{
-margin:10px;
-text-decoration:none;
-font-weight:bold;
-color:#4a3728;
-}
-
-section{
-padding:40px;
-}
-
-button{
-background:#8b6f47;
 color:white;
-border:none;
-padding:12px 20px;
-border-radius:8px;
-font-size:16px;
+text-decoration:none;
+margin:20px;
+font-weight:600;
 }
 
-footer{
-background:#e8d8c7;
-padding:20px;
+/* HERO */
+
+.hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:
+radial-gradient(circle at 20% 40%,#FF2E88,transparent 45%),
+radial-gradient(circle at 70% 60%,#8B5CF6,transparent 45%),
+radial-gradient(circle at 50% 80%,#6366F1,transparent 45%),
+radial-gradient(circle at 40% 20%,#22D3EE,transparent 45%),
+#020617;
+animation:aurora 14s infinite alternate;
+}
+
+@keyframes aurora{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+.hero h1{
+font-size:60px;
+margin:0;
+}
+
+.hero p{
+font-size:22px;
+opacity:.9;
+}
+
+.hero button{
+margin-top:35px;
+padding:16px 30px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#F59E0B;
+cursor:pointer;
+transition:.3s;
+}
+
+.hero button:hover{
+box-shadow:0 0 20px #F59E0B;
+transform:translateY(-2px);
+}
+
+/* SECTIONS */
+
+.section{
+padding:90px 20px;
+}
+
+/* GLASS PANEL */
+
+.glass{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(16px);
+border-radius:18px;
+padding:40px;
+margin:20px auto;
+max-width:1100px;
+box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+
+/* PROJECT CARDS */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
 margin-top:40px;
 }
 
-</style>
+.card{
+background:rgba(255,255,255,0.06);
+padding:25px;
+border-radius:14px;
+transition:.3s;
+}
 
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 25px #22D3EE;
+}
+
+/* FOOTER */
+
+footer{
+padding:40px;
+opacity:.7;
+}
+
+</style>
 </head>
 
 <body>
 
-<header>
-
-<h1>Mimi's Cozy Corner</h1>
-<p>A cozy creative community where creators share projects and earn rewards.</p>
-
-</header>
-
 <nav>
-
-<a href="index.html">Home</a>
-<a href="projects.html">Projects</a>
-<a href="challenges.html">Challenges</a>
-<a href="rewards.html">Cozy Rewards</a>
-<a href="submit.html">Submit Project</a>
-
+<a href="#">Home</a>
+<a href="#">Projects</a>
+<a href="#">Challenges</a>
+<a href="#">Rewards</a>
+<a href="#">Submit</a>
 </nav>
 
-<section>
+<section class="hero">
 
-<h2>Join the Cozy Creator Community</h2>
+<h1>Mimi's Cozy Corner</h1>
+<p>Create • Share • Earn Cozy Rewards</p>
 
-<p>
-Share your creations, participate in cozy challenges,
-and earn Cozy Points for rewards.
-</p>
-
-<button>Join a Challenge</button>
+<button>Join the Current Challenge</button>
 
 </section>
 
-<section>
+<section class="section">
+
+<div class="glass">
+
+<h2>Featured Creator Projects</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Crochet Blanket</h3>
+<p>Submitted by Sarah</p>
+</div>
+
+<div class="card">
+<h3>Handmade Candles</h3>
+<p>Submitted by Mia</p>
+</div>
+
+<div class="card">
+<h3>Wood Burned Coasters</h3>
+<p>Submitted by Alex</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="glass">
 
 <h2>How It Works</h2>
 
-<p>1. Join a cozy challenge</p>
-<p>2. Submit your creative project</p>
-<p>3. Earn Cozy Points</p>
-<p>4. Unlock cozy rewards</p>
+<p>1. Join a challenge</p>
+<p>2. Create something cozy</p>
+<p>3. Submit your project</p>
+<p>4. Earn Cozy Points</p>
+
+</div>
 
 </section>
 
 <footer>
-
 <p>© Mimi's Cozy Corner</p>
-
 </footer>
 
 </body>
-
 </html>

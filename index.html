@@ -7,6 +7,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
 <style>
 
 body{
@@ -17,7 +19,7 @@ color:white;
 text-align:center;
 }
 
-/* NAVBAR */
+/* NAV */
 
 nav{
 position:fixed;
@@ -48,13 +50,6 @@ background:
 radial-gradient(circle at 20% 40%,#ff2e88,transparent 40%),
 radial-gradient(circle at 70% 60%,#8b5cf6,transparent 40%),
 radial-gradient(circle at 50% 80%,#22d3ee,transparent 40%);
-
-animation:bgmove 20s infinite alternate;
-}
-
-@keyframes bgmove{
-0%{background-position:0% 50%;}
-100%{background-position:100% 50%;}
 }
 
 .hero h1{
@@ -74,12 +69,6 @@ border-radius:10px;
 background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
 color:white;
 cursor:pointer;
-transition:.3s;
-}
-
-.neon-btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 20px #ff2e88;
 }
 
 /* SECTION */
@@ -102,13 +91,43 @@ margin:20px;
 border-radius:10px;
 }
 
-/* CARDS */
+/* DESIGNER */
+
+.designer{
+width:320px;
+margin:auto;
+position:relative;
+}
+
+.designer img{
+width:100%;
+}
+
+.design-text{
+position:absolute;
+top:120px;
+left:0;
+right:0;
+font-size:26px;
+font-weight:bold;
+cursor:move;
+}
+
+.design-image{
+position:absolute;
+top:140px;
+left:90px;
+width:100px;
+cursor:move;
+}
+
+/* CARD */
 
 .cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:25px;
-max-width:1100px;
+max-width:1000px;
 margin:auto;
 }
 
@@ -116,36 +135,6 @@ margin:auto;
 background:rgba(255,255,255,.07);
 padding:20px;
 border-radius:12px;
-}
-
-/* SHIRT DESIGN */
-
-.shirt-preview{
-position:relative;
-width:320px;
-margin:auto;
-}
-
-.shirt-preview img{
-width:100%;
-}
-
-#designText{
-position:absolute;
-top:120px;
-left:0;
-right:0;
-font-size:26px;
-font-weight:bold;
-}
-
-/* LEADERBOARD */
-
-.leader{
-background:rgba(255,255,255,.1);
-padding:12px;
-margin:8px;
-border-radius:8px;
 }
 
 </style>
@@ -156,33 +145,32 @@ border-radius:8px;
 
 <nav>
 
-<a href="#challenge">Challenge</a> <a href="#feed">Feed</a> <a href="#tools">Tools</a> <a href="#marketplace">Marketplace</a> <a href="#guides">Guides</a> <a href="#store">Store</a>
+<a href="#challenge">Challenge</a> <a href="#feed">Feed</a> <a href="#tools">Tools</a> <a href="#designer">Designer</a> <a href="#market">Marketplace</a> <a href="#store">Store</a>
 
 </nav>
 
 <section class="hero">
 
 <h1>Mimi's Cozy Corner</h1>
-
 <p>The Internet's Creative Playground</p>
 
 </section>
 
 <section class="section">
 
-<h2>Join the Creator Community</h2>
+<h2>Email Community</h2>
 
-<input id="emailInput" placeholder="Enter your email">
+<input id="email" placeholder="Enter email">
 
 <button class="neon-btn" onclick="subscribe()">Subscribe</button>
 
-<p id="subscribeMsg"></p>
+<p id="msg"></p>
 
 </section>
 
 <section class="section" id="challenge">
 
-<h2>Daily Creative Challenge</h2>
+<h2>Daily Challenge</h2>
 
 <button class="neon-btn" onclick="challenge()">Generate Challenge</button>
 
@@ -194,17 +182,17 @@ border-radius:8px;
 
 <h2>Inspiration Feed</h2>
 
-<div id="feed" class="feed"></div>
+<div id="feed"></div>
 
-<button class="neon-btn" onclick="loadFeed()">Load More</button>
+<button class="neon-btn" onclick="feed()">Load More</button>
 
 </section>
 
 <section class="section" id="tools">
 
-<h2>Creative Tools</h2>
+<h2>Creative Generators</h2>
 
-<button class="neon-btn" onclick="quote()">Quote Generator</button>
+<button class="neon-btn" onclick="quote()">Quote</button>
 
 <p id="quote"></p>
 
@@ -226,48 +214,52 @@ border-radius:8px;
 
 <h2>Meme Creator</h2>
 
-<input id="memeTop" placeholder="Top text">
-<input id="memeBottom" placeholder="Bottom text">
+<input id="top" placeholder="Top text">
+<input id="bottom" placeholder="Bottom text">
 
 <br><br>
 
-<button class="neon-btn" onclick="createMeme()">Generate Meme</button>
+<button class="neon-btn" onclick="meme()">Generate Meme</button>
 
 <br><br>
 
-<canvas id="memeCanvas" width="400" height="400"></canvas>
+<canvas id="canvas" width="400" height="400"></canvas>
 
 </section>
 
-<section class="section">
+<section class="section" id="designer">
 
-<h2>Shirt Designer</h2>
+<h2>Design Your Shirt</h2>
 
-<div class="shirt-preview">
+<div class="designer">
 
 <img src="https://i.imgur.com/6qK0F8K.png">
 
-<div id="designText"></div>
+<div id="text" class="design-text"></div>
+
+<img id="image" class="design-image">
 
 </div>
 
-<input id="shirtText" placeholder="Enter shirt text">
+<input id="shirtText" placeholder="Add text">
 
-<input type="color" id="textColor">
+<input type="color" id="color">
+
+<input type="file" id="upload">
 
 <br>
 
-<button class="neon-btn" onclick="applyDesign()">Apply Design</button>
+<button class="neon-btn" onclick="apply()">Apply</button>
 
 </section>
 
-<section class="section" id="marketplace">
+<section class="section" id="market">
 
 <h2>Creator Marketplace</h2>
 
-<input id="designIdea" placeholder="Submit design idea">
+<input id="idea" placeholder="Submit design idea">
 
-<button class="neon-btn" onclick="submitIdea()">Submit</button>
+<button class="neon-btn" onclick="idea()">Submit</button>
 
 <div id="ideas"></div>
 
@@ -277,63 +269,29 @@ border-radius:8px;
 
 <h2>Design Competition</h2>
 
-<input id="compInput" placeholder="Enter competition idea">
+<input id="comp" placeholder="Enter design">
 
-<button class="neon-btn" onclick="submitCompetition()">Submit Entry</button>
+<button class="neon-btn" onclick="comp()">Submit</button>
 
 <div id="competition"></div>
-
-<h3>Trending Leaderboard</h3>
-
-<div id="leaderboard"></div>
-
-</section>
-
-<section class="section" id="guides">
-
-<h2>Creative Guides</h2>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>Design Guide</h3>
-
-<a href="guides/design-guide.pdf" target="_blank">
-<button class="neon-btn">Download PDF</button>
-</a>
-
-</div>
-
-<div class="card">
-
-<h3>Meme Guide</h3>
-
-<a href="guides/meme-guide.pdf" target="_blank">
-<button class="neon-btn">Download PDF</button>
-</a>
-
-</div>
-
-</div>
 
 </section>
 
 <section class="section" id="store">
 
-<h2>Merch Store</h2>
+<h2>Store</h2>
 
 <div class="cards">
 
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
+<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" width="100%">
 
 <h3>Neon Dream Tee</h3>
 
 <p>$24.99</p>
 
-<div id="paypal-button-container"></div>
+<div id="paypal"></div>
 
 </div>
 
@@ -351,79 +309,102 @@ border-radius:8px;
 
 <script>
 
+/* EMAIL */
+
 function subscribe(){
-document.getElementById("subscribeMsg").innerText="Welcome to the Cozy Creator Community";
+
+document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner";
+
 }
+
+/* CHALLENGE */
 
 function challenge(){
-const challenges=[
+
+const c=[
 "Design a sarcastic shirt",
 "Create a viral meme",
-"Make a neon retro design",
-"Create a motivational quote shirt",
-"Make a funny dad joke meme"
+"Make a neon retro shirt",
+"Create a motivational design"
 ];
-document.getElementById("challengeText").innerText=
-challenges[Math.floor(Math.random()*challenges.length)];
+
+document.getElementById("challengeText").innerText=c[Math.floor(Math.random()*c.length)];
+
 }
 
-const feedIdeas=[
-"Coffee First People Later",
-"Sarcasm Loading",
-"Powered by Chaos",
-"World's Okayest Adult",
-"Running Late Is My Cardio"
+/* FEED */
+
+const posts=[
+"Coffee first people later",
+"Sarcasm loading",
+"Powered by chaos",
+"Running late is my cardio"
 ];
 
-function loadFeed(){
-const feed=document.getElementById("feed");
+function feed(){
+
+const f=document.getElementById("feed");
+
 for(let i=0;i<3;i++){
+
 const div=document.createElement("div");
+
 div.className="feed-item";
-div.innerText=feedIdeas[Math.floor(Math.random()*feedIdeas.length)];
-feed.appendChild(div);
+
+div.innerText=posts[Math.floor(Math.random()*posts.length)];
+
+f.appendChild(div);
+
 }
+
 }
+
+/* QUOTES */
 
 function quote(){
-const quotes=[
-"Creativity is your superpower",
-"Stay cozy stay bold",
-"Dream bigger than yesterday",
-"Your imagination is limitless"
-];
-document.getElementById("quote").innerText=
-quotes[Math.floor(Math.random()*quotes.length)];
+
+const q=["Stay cozy stay bold","Dream bigger","Creativity wins"];
+
+document.getElementById("quote").innerText=q[Math.floor(Math.random()*q.length)];
+
 }
 
+/* HUMOR */
+
 function dad(){
-const jokes=[
-"I used to hate facial hair… but it grew on me",
-"I'm reading a book about anti-gravity… impossible to put down"
-];
-document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+const j=["I used to hate facial hair but it grew on me"];
+
+document.getElementById("dad").innerText=j[Math.floor(Math.random()*j.length)];
+
 }
 
 function sarcasm(){
-const jokes=[
-"I'm not arguing I'm explaining why I'm right",
-"My patience left the chat"
-];
-document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+const j=["I'm not arguing I'm explaining why I'm right"];
+
+document.getElementById("sarcasm").innerText=j[Math.floor(Math.random()*j.length)];
+
 }
 
 function adult(){
-const jokes=[
-"Running late is my cardio",
-"Powered by caffeine and chaos"
-];
-document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+const j=["Powered by caffeine and chaos"];
+
+document.getElementById("adult").innerText=j[Math.floor(Math.random()*j.length)];
+
 }
 
-function createMeme(){
-const canvas=document.getElementById("memeCanvas");
+/* MEME */
+
+function meme(){
+
+const canvas=document.getElementById("canvas");
+
 const ctx=canvas.getContext("2d");
+
 const img=new Image();
+
 img.src="https://i.imgflip.com/30b1gx.jpg";
 
 img.onload=function(){
@@ -431,44 +412,99 @@ img.onload=function(){
 ctx.drawImage(img,0,0,400,400);
 
 ctx.font="30px Impact";
+
 ctx.fillStyle="white";
+
 ctx.strokeStyle="black";
-ctx.lineWidth=3;
+
 ctx.textAlign="center";
 
-ctx.fillText(document.getElementById("memeTop").value,200,40);
-ctx.strokeText(document.getElementById("memeTop").value,200,40);
+ctx.fillText(document.getElementById("top").value,200,40);
 
-ctx.fillText(document.getElementById("memeBottom").value,200,380);
-ctx.strokeText(document.getElementById("memeBottom").value,200,380);
+ctx.fillText(document.getElementById("bottom").value,200,380);
 
 };
+
 }
 
-function applyDesign(){
-const text=document.getElementById("shirtText").value;
-const color=document.getElementById("textColor").value;
+/* DESIGNER */
 
-const el=document.getElementById("designText");
+function apply(){
 
-el.innerText=text;
-el.style.color=color;
+document.getElementById("text").innerText=document.getElementById("shirtText").value;
+
+document.getElementById("text").style.color=document.getElementById("color").value;
+
 }
+
+document.getElementById("upload").onchange=function(e){
+
+const reader=new FileReader();
+
+reader.onload=function(){
+
+document.getElementById("image").src=reader.result;
+
+};
+
+reader.readAsDataURL(e.target.files[0]);
+
+}
+
+/* DRAG */
+
+interact('.design-text,.design-image').draggable({
+
+listeners:{
+
+move(event){
+
+const target=event.target;
+
+const x=(parseFloat(target.getAttribute('data-x'))||0)+event.dx;
+
+const y=(parseFloat(target.getAttribute('data-y'))||0)+event.dy;
+
+target.style.transform=`translate(${x}px,${y}px)`;
+
+target.setAttribute('data-x',x);
+
+target.setAttribute('data-y',y);
+
+}
+
+}
+
+});
+
+/* PAYPAL */
 
 paypal.Buttons({
+
 createOrder:function(data,actions){
+
 return actions.order.create({
+
 purchase_units:[{amount:{value:'24.99'}}]
+
 });
+
 },
+
 onApprove:function(data,actions){
+
 return actions.order.capture().then(function(details){
-alert('Payment completed by '+details.payer.name.given_name);
+
+alert("Payment completed");
+
 });
+
 }
-}).render('#paypal-button-container');
+
+}).render('#paypal');
 
 </script>
 
 </body>
+
 </html>

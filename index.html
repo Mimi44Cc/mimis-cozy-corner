@@ -96,6 +96,14 @@ right:40%;
 .hero h1{
 font-size:60px;
 margin:0;
+background:linear-gradient(90deg,#FF2E88,#8B5CF6,#22D3EE);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-shadow:
+0 0 10px #FF2E88,
+0 0 20px #8B5CF6,
+0 0 30px #22D3EE;
+animation:glowPulse 3s infinite alternate;
 }
 
 .hero p{
@@ -167,7 +175,21 @@ footer{
 padding:40px;
 opacity:.7;
 }
+@keyframes glowPulse{
+0%{
+text-shadow:
+0 0 10px #FF2E88,
+0 0 20px #8B5CF6,
+0 0 30px #22D3EE;
+}
 
+100%{
+text-shadow:
+0 0 20px #FF2E88,
+0 0 35px #8B5CF6,
+0 0 50px #22D3EE;
+}
+}
 </style>
 </head>
 

@@ -1,257 +1,405 @@
-```html
 <!DOCTYPE html>
+
 <html>
 <head>
 
-<title>Mimi's Cozy Corner Autopilot Studio</title>
+<title>Mimi's Cozy Corner</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
+margin:0;
 font-family:Segoe UI,sans-serif;
 background:#020617;
-color:white;
+color:#F9FAFB;
 text-align:center;
-padding:40px;
+overflow-x:hidden;
 }
 
-h1{
-background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
+/* NAVBAR */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(12px);
+padding:15px;
+z-index:10;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:20px;
+font-weight:600;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:
+radial-gradient(circle at 20% 40%,#FF2E88,transparent 45%),
+radial-gradient(circle at 70% 60%,#8B5CF6,transparent 45%),
+radial-gradient(circle at 50% 80%,#6366F1,transparent 45%),
+radial-gradient(circle at 40% 20%,#22D3EE,transparent 45%),
+#020617;
+}
+
+.hero h1{
+font-size:60px;
+background:linear-gradient(90deg,#FF2E88,#8B5CF6,#22D3EE);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-font-size:48px;
 }
+
+.hero p{
+font-size:22px;
+opacity:.9;
+}
+
+/* BUTTON */
+
+.neon-btn{
+margin-top:20px;
+padding:14px 28px;
+font-size:18px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:linear-gradient(90deg,#FF2E88,#8B5CF6,#22D3EE);
+color:white;
+}
+
+.neon-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #8B5CF6;
+}
+
+/* SECTIONS */
 
 .section{
-margin-top:40px;
-padding:30px;
-background:rgba(255,255,255,.05);
-border-radius:12px;
+padding:90px 20px;
 }
 
-button{
-padding:14px 28px;
-margin:10px;
-font-size:16px;
-border:none;
+/* STORE GRID */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+}
+
+.card{
+background:rgba(255,255,255,0.06);
+padding:25px;
+border-radius:14px;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+/* DESIGNER */
+
+.shirt-preview{
+position:relative;
+width:320px;
+margin:auto;
+}
+
+.shirt-preview img{
+width:100%;
+}
+
+#design-text{
+position:absolute;
+top:120px;
+left:0;
+right:0;
+font-size:26px;
+font-weight:bold;
+}
+
+#design-image{
+position:absolute;
+top:100px;
+left:50%;
+transform:translateX(-50%);
+max-width:120px;
+}
+
+/* INPUTS */
+
+input,select{
+width:230px;
+padding:10px;
+margin:8px;
 border-radius:8px;
-background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
-color:white;
-cursor:pointer;
+border:none;
 }
 
-.output{
-margin-top:20px;
-font-size:18px;
+footer{
+padding:40px;
+opacity:.7;
 }
 
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </head>
 
 <body>
 
-<h1>Mimi's Cozy Corner Autopilot Studio</h1>
+<nav>
+<a href="#">Home</a>
+<a href="#shop">Shop</a>
+<a href="#design">Design</a>
+</nav>
 
-<div class="section">
+<section class="hero">
 
-<h2>Viral Shirt Idea Generator</h2>
+<h1>Mimi's Cozy Corner</h1>
+<p>Bold Neon T-Shirts for Creative Souls</p>
 
-<button onclick="generateIdea()">Generate Idea</button>
+<button class="neon-btn">Shop T-Shirts</button> <button class="neon-btn">Design Your Own</button>
 
-<p class="output" id="idea"></p>
+</section>
+
+<section class="section" id="shop">
+
+<h2>Featured T-Shirts</h2>
+
+<div class="cards">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
+<h3>Neon Dream Tee</h3>
+<p>$24.99</p>
+<button class="neon-btn">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+<h3>Cosmic Vibes Tee</h3>
+<p>$24.99</p>
+<button class="neon-btn">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f">
+<h3>Midnight Glow Tee</h3>
+<p>$24.99</p>
+<button class="neon-btn">Buy Now</button>
+</div>
 
 </div>
 
-<div class="section">
+</section>
 
-<h2>Shirt Slogan Generator</h2>
+<section class="section" id="design">
 
-<button onclick="generateSlogan()">Generate Slogan</button>
+<h2>Design Your Own T-Shirt</h2>
 
-<p class="output" id="slogan"></p>
+<div class="shirt-preview" id="designer">
 
-</div>
+<img id="shirt" src="https://i.imgur.com/6qK0F8K.png">
 
-<div class="section">
+<div id="design-text"></div>
 
-<h2>Social Media Caption Generator</h2>
-
-<button onclick="generateCaption()">Generate Caption</button>
-
-<p class="output" id="caption"></p>
+<img id="design-image">
 
 </div>
 
-<div class="section">
+<input type="text" id="textInput" placeholder="Enter text">
 
-<h2>Hashtag Generator</h2>
+<br>
 
-<button onclick="generateHashtags()">Generate Hashtags</button>
+<label>Text Color</label><br> <input type="color" id="textColor">
 
-<p class="output" id="hashtags"></p>
+<br>
 
-</div>
+<label>Shirt Color</label><br>
 
-<div class="section">
+<select id="shirtColor">
+<option value="#000000">Black</option>
+<option value="#ffffff">White</option>
+<option value="#ff0000">Red</option>
+<option value="#1e3a8a">Blue</option>
+<option value="#065f46">Green</option>
+<option value="#facc15">Yellow</option>
+</select>
 
-<h2>Daily Posting Schedule</h2>
+<br>
 
-<p>
+<input type="file" id="imageUpload">
 
-TikTok → 2 Posts Daily<br><br>
+<br>
 
-Instagram → 1 Reel Daily<br><br>
+<label>Rotate Design</label><br> <input type="range" id="rotateSlider" min="0" max="360">
 
-Facebook → 1 Post Daily
+<br>
 
-</p>
+<button class="neon-btn" id="resetBtn">Reset Design</button> <button class="neon-btn" id="downloadBtn">Download My Design</button>
 
-</div>
+</section>
 
-<div class="section">
-
-<h2>Weekly Shirt Drop Planner</h2>
-
-<button onclick="generateDrop()">Generate Shirt Drop Plan</button>
-
-<p class="output" id="drop"></p>
-
-</div>
+<footer>
+<p>© Mimi's Cozy Corner</p>
+</footer>
 
 <script>
 
-function generateIdea(){
+/* TEXT */
 
-const ideas=[
+const textInput=document.getElementById("textInput");
+const designText=document.getElementById("design-text");
 
-"Funny cat meme shirt",
+textInput.addEventListener("input",()=>{
+designText.textContent=textInput.value;
+});
 
-"Retro neon sunset graphic tee",
+/* TEXT COLOR */
 
-"Motivational hustle quote shirt",
+const textColor=document.getElementById("textColor");
 
-"Gaming humor design",
+textColor.addEventListener("input",()=>{
+designText.style.color=textColor.value;
+});
 
-"Minimalist aesthetic design",
+/* SHIRT COLOR */
 
-"Coffee lover slogan shirt",
+const shirtColor=document.getElementById("shirtColor");
+const shirt=document.getElementById("shirt");
 
-"Streetwear graffiti design",
+shirtColor.addEventListener("change",()=>{
+shirt.style.backgroundColor=shirtColor.value;
+});
 
-"Vintage 90s neon graphic",
+/* IMAGE UPLOAD */
 
-"Self-love affirmation shirt",
+const imageUpload=document.getElementById("imageUpload");
+const designImage=document.getElementById("design-image");
 
-"Funny sarcastic slogan tee"
+imageUpload.addEventListener("change",function(){
 
-];
+const file=this.files[0];
 
-document.getElementById("idea").innerText=ideas[Math.floor(Math.random()*ideas.length)];
+if(file){
 
-}
+const reader=new FileReader();
 
-function generateSlogan(){
+reader.onload=function(e){
+designImage.src=e.target.result;
+};
 
-const slogans=[
-
-"Stay Cozy Stay Bold",
-
-"Neon Dreams Never Sleep",
-
-"Powered by Coffee and Chaos",
-
-"Create Your Own Reality",
-
-"Too Cozy To Care",
-
-"Glow Different",
-
-"Design Your Vibe",
-
-"Comfort Meets Chaos",
-
-"Bold Looks Better",
-
-"Chill Mode Activated"
-
-];
-
-document.getElementById("slogan").innerText=slogans[Math.floor(Math.random()*slogans.length)];
+reader.readAsDataURL(file);
 
 }
 
-function generateCaption(){
+});
 
-const captions=[
+/* DRAGGING */
 
-"Fresh neon drip just dropped 🔥",
+interact('#design-text').draggable({
+listeners:{
+move(event){
 
-"Design your own vibe today",
+const target=event.target;
 
-"Custom shirts made for bold souls",
+const x=(parseFloat(target.getAttribute('data-x'))||0)+event.dx;
+const y=(parseFloat(target.getAttribute('data-y'))||0)+event.dy;
 
-"Your style your rules",
+target.style.transform='translate('+x+'px,'+y+'px)';
 
-"Create something unique today",
-
-"Neon vibes only ✨",
-
-"Streetwear meets creativity",
-
-"Your imagination on a shirt"
-
-];
-
-document.getElementById("caption").innerText=captions[Math.floor(Math.random()*captions.length)];
+target.setAttribute('data-x',x);
+target.setAttribute('data-y',y);
 
 }
+}
+});
 
-function generateHashtags(){
+interact('#design-image').draggable({
+listeners:{
+move(event){
 
-const hashtags=[
+const target=event.target;
 
-"#customshirts #streetwear #tshirtdesign #printondemand #fashion",
+const x=(parseFloat(target.getAttribute('data-x'))||0)+event.dx;
+const y=(parseFloat(target.getAttribute('data-y'))||0)+event.dy;
 
-"#neonstyle #customfashion #streetwearbrand #viralshirt",
+target.style.transform='translate('+x+'px,'+y+'px)';
 
-"#designyourshirt #streetstyle #customdesign",
-
-"#tshirtbrand #creativefashion #independentbrand"
-
-];
-
-document.getElementById("hashtags").innerText=hashtags[Math.floor(Math.random()*hashtags.length)];
+target.setAttribute('data-x',x);
+target.setAttribute('data-y',y);
 
 }
+}
+});
 
-function generateDrop(){
+/* RESIZE */
 
-const drops=[
+interact('#design-image').resizable({
+edges:{left:true,right:true,bottom:true,top:true},
+listeners:{
+move(event){
 
-"Monday → Funny meme shirts",
-
-"Tuesday → Motivational designs",
-
-"Wednesday → Gaming culture shirts",
-
-"Thursday → Streetwear graphics",
-
-"Friday → Retro neon collection",
-
-"Weekend → Limited edition drop"
-
-];
-
-document.getElementById("drop").innerText=drops[Math.floor(Math.random()*drops.length)];
+let target=event.target;
+target.style.width=event.rect.width+'px';
 
 }
+}
+});
+
+/* ROTATE */
+
+const rotateSlider=document.getElementById("rotateSlider");
+
+rotateSlider.addEventListener("input",()=>{
+designImage.style.transform="translateX(-50%) rotate("+rotateSlider.value+"deg)";
+});
+
+/* RESET */
+
+document.getElementById("resetBtn").onclick=function(){
+
+designText.textContent="";
+designImage.src="";
+rotateSlider.value=0;
+
+};
+
+/* DOWNLOAD */
+
+document.getElementById("downloadBtn").onclick=function(){
+
+html2canvas(document.getElementById("designer")).then(canvas=>{
+
+const link=document.createElement("a");
+
+link.download="my-shirt-design.png";
+
+link.href=canvas.toDataURL();
+
+link.click();
+
+});
+
+};
 
 </script>
 
 </body>
-
 </html>
-```
-

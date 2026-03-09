@@ -1,457 +1,229 @@
-<!DOCTYPE html>
+<section class="section" id="marketplace">
 
-<html>
-<head>
+<h2>Creator Marketplace</h2>
 
-<title>Mimi's Cozy Corner</title>
+<input id="designInput" placeholder="Submit your design idea">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<button class="neon-btn" onclick="submitDesign()">Submit Design</button>
 
-<style>
-
-body{
-margin:0;
-font-family:Segoe UI,sans-serif;
-background:#020617;
-color:white;
-text-align:center;
-}
-
-/* NAVBAR */
-
-nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(0,0,0,.5);
-padding:15px;
-z-index:10;
-}
-
-nav a{
-color:white;
-margin:20px;
-text-decoration:none;
-}
-
-/* HERO */
-
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:
-radial-gradient(circle at 20% 40%,#ff2e88,transparent 40%),
-radial-gradient(circle at 70% 60%,#8b5cf6,transparent 40%),
-radial-gradient(circle at 50% 80%,#22d3ee,transparent 40%);
-}
-
-.hero h1{
-font-size:64px;
-background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-/* BUTTON */
-
-.neon-btn{
-padding:14px 28px;
-margin:10px;
-border:none;
-border-radius:10px;
-background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
-color:white;
-cursor:pointer;
-}
-
-/* SECTIONS */
-
-.section{
-padding:90px 20px;
-}
-
-/* STORE GRID */
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-max-width:1100px;
-margin:auto;
-}
-
-.card{
-background:rgba(255,255,255,.06);
-padding:20px;
-border-radius:12px;
-}
-
-.card img{
-width:100%;
-border-radius:10px;
-}
-
-/* DESIGNER */
-
-.shirt-preview{
-position:relative;
-width:300px;
-margin:auto;
-}
-
-.shirt-preview img{
-width:100%;
-}
-
-#design-text{
-position:absolute;
-top:120px;
-left:0;
-right:0;
-font-size:26px;
-font-weight:bold;
-}
-
-/* FEED */
-
-.feed{
-max-width:800px;
-margin:auto;
-}
-
-.feed-item{
-background:rgba(255,255,255,.07);
-padding:20px;
-margin:20px;
-border-radius:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<nav>
-
-<a href="#">Home</a> <a href="#feed">Feed</a> <a href="#quotes">Quotes</a> <a href="#humor">Humor</a> <a href="#designer">Designer</a> <a href="#store">Store</a> <a href="#community">Community</a>
-
-</nav>
-
-<section class="hero">
-
-<h1>Mimi's Cozy Corner</h1>
-
-<p>Designs • Humor • Creativity • Community</p>
-
-<button class="neon-btn" onclick="scrollFeed()">Explore</button>
+<div id="marketplaceList"></div>
 
 </section>
 
-<section class="section" id="feed">
+<section class="section" id="competition">
 
-<h2>Infinite Inspiration Feed</h2>
+<h2>Design Competition</h2>
 
-<div class="feed" id="feed"></div>
+<input id="competitionInput" placeholder="Enter a quote or idea">
 
-<button class="neon-btn" onclick="loadFeed()">Load More</button>
+<button class="neon-btn" onclick="submitCompetition()">Submit Entry</button>
 
-</section>
-
-<section class="section" id="quotes">
-
-<h2>Quote Generator</h2>
-
-<button class="neon-btn" onclick="quote()">Generate Quote</button>
-
-<p id="quote"></p>
-
-<button class="neon-btn" onclick="saveQuote()">Save</button>
+<div id="competitionList"></div>
 
 </section>
 
-<section class="section" id="humor">
+<section class="section" id="trending">
 
-<h2>Humor Generators</h2>
+<h2>Trending Leaderboard</h2>
 
-<button class="neon-btn" onclick="dad()">Dad Joke</button>
-
-<p id="dad"></p>
-
-<button class="neon-btn" onclick="mom()">Mom Humor</button>
-
-<p id="mom"></p>
-
-<button class="neon-btn" onclick="sarcasm()">Sarcasm</button>
-
-<p id="sarcasm"></p>
-
-<button class="neon-btn" onclick="kid()">Kid Joke</button>
-
-<p id="kid"></p>
-
-<button class="neon-btn" onclick="adult()">Adult Humor</button>
-
-<p id="adult"></p>
+<div id="leaderboard"></div>
 
 </section>
 
-<section class="section" id="designer">
+<section class="section" id="meme">
 
-<h2>Create Your Shirt</h2>
+<h2>Meme Creator</h2>
 
-<div class="shirt-preview" id="canvas">
+<input id="memeTop" placeholder="Top Text">
 
-<img src="https://i.imgur.com/6qK0F8K.png">
+<input id="memeBottom" placeholder="Bottom Text">
 
-<div id="design-text"></div>
+<br><br>
 
-</div>
+<button class="neon-btn" onclick="createMeme()">Generate Meme</button>
 
-<input id="textInput" placeholder="Type your design text">
+<br><br>
+
+<canvas id="memeCanvas" width="400" height="400"></canvas>
 
 <br>
 
-<input type="color" id="textColor">
-
-<br>
-
-<button class="neon-btn" onclick="updateDesign()">Apply</button>
-
-<button class="neon-btn" onclick="download()">Download</button>
+<button class="neon-btn" onclick="downloadMeme()">Download Meme</button>
 
 </section>
-
-<section class="section" id="store">
-
-<h2>Creative Merch</h2>
-
-<div class="cards">
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
-
-<h3>Neon Dream Tee</h3>
-
-<p>$24.99</p>
-
-<button class="neon-btn">Buy</button>
-
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
-
-<h3>Cosmic Hoodie</h3>
-
-<p>$39.99</p>
-
-<button class="neon-btn">Buy</button>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="community">
-
-<h2>Community Feed</h2>
-
-<input id="postInput" placeholder="Share a joke, quote, or idea">
-
-<button class="neon-btn" onclick="post()">Post</button>
-
-<div id="posts"></div>
-
-</section>
-
-<footer>
-
-<p>© Mimi's Cozy Corner</p>
-
-</footer>
 
 <script>
 
-/* FEED */
+/* MARKETPLACE */
 
-const feedIdeas=[
+let marketplace=[];
 
-"Coffee First People Later",
+function submitDesign(){
 
-"Running Late Is My Cardio",
+const text=document.getElementById("designInput").value;
 
-"Sarcasm Loading",
+if(text==="") return;
 
-"Powered By Chaos And Snacks",
+marketplace.push(text);
 
-"World's Okayest Adult"
+renderMarketplace();
 
-];
+document.getElementById("designInput").value="";
 
-function loadFeed(){
+}
 
-const feed=document.getElementById("feed");
+function renderMarketplace(){
 
-for(let i=0;i<4;i++){
+const box=document.getElementById("marketplaceList");
+
+box.innerHTML="";
+
+marketplace.forEach(d=>{
 
 const div=document.createElement("div");
 
 div.className="feed-item";
 
-div.innerText=feedIdeas[Math.floor(Math.random()*feedIdeas.length)];
+div.innerText=d;
 
-feed.appendChild(div);
+box.appendChild(div);
 
-}
-
-}
-
-/* QUOTES */
-
-function quote(){
-
-const quotes=[
-
-"Stay cozy stay bold",
-
-"Creativity is your superpower",
-
-"Dream bigger than yesterday",
-
-"Your imagination is limitless"
-
-];
-
-document.getElementById("quote").innerText=
-
-quotes[Math.floor(Math.random()*quotes.length)];
+});
 
 }
 
-function saveQuote(){
+/* COMPETITION */
 
-let saved=JSON.parse(localStorage.getItem("quotes")||"[]");
+let competition={};
 
-saved.push(document.getElementById("quote").innerText);
+function submitCompetition(){
 
-localStorage.setItem("quotes",JSON.stringify(saved));
+const text=document.getElementById("competitionInput").value;
 
-}
+if(text==="") return;
 
-/* HUMOR */
+competition[text]=0;
 
-function dad(){
+renderCompetition();
 
-const jokes=[
-
-"I used to hate facial hair… but it grew on me",
-
-"I'm reading a book about anti-gravity… impossible to put down"
-
-];
-
-document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+document.getElementById("competitionInput").value="";
 
 }
 
-function mom(){
+function renderCompetition(){
 
-const jokes=[
+const box=document.getElementById("competitionList");
 
-"If it's quiet something is wrong",
+box.innerHTML="";
 
-"Mom mode activated"
-
-];
-
-document.getElementById("mom").innerText=jokes[Math.floor(Math.random()*jokes.length)];
-
-}
-
-function sarcasm(){
-
-const jokes=[
-
-"I'm not arguing I'm explaining why I'm right",
-
-"My patience left the chat"
-
-];
-
-document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*jokes.length)];
-
-}
-
-function kid(){
-
-const jokes=[
-
-"Why did the cookie go to the doctor? Because it felt crummy",
-
-"Why did the computer go to school? To improve its memory"
-
-];
-
-document.getElementById("kid").innerText=jokes[Math.floor(Math.random()*jokes.length)];
-
-}
-
-function adult(){
-
-const jokes=[
-
-"Running late is my cardio",
-
-"Powered by caffeine and chaos"
-
-];
-
-document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.length)];
-
-}
-
-/* DESIGNER */
-
-function updateDesign(){
-
-const text=document.getElementById("textInput").value;
-
-const color=document.getElementById("textColor").value;
-
-const el=document.getElementById("design-text");
-
-el.innerText=text;
-
-el.style.color=color;
-
-}
-
-/* COMMUNITY */
-
-function post(){
-
-const text=document.getElementById("postInput").value;
+Object.keys(competition).forEach(text=>{
 
 const div=document.createElement("div");
 
 div.className="feed-item";
+
+const btn=document.createElement("button");
+
+btn.innerText="👍 Vote";
+
+btn.onclick=function(){
+
+competition[text]++;
+
+updateLeaderboard();
+
+};
 
 div.innerText=text;
 
-document.getElementById("posts").prepend(div);
+div.appendChild(document.createElement("br"));
 
-document.getElementById("postInput").value="";
+div.appendChild(btn);
+
+box.appendChild(div);
+
+});
+
+}
+
+/* LEADERBOARD */
+
+function updateLeaderboard(){
+
+const board=document.getElementById("leaderboard");
+
+board.innerHTML="";
+
+Object.keys(competition)
+
+.sort((a,b)=>competition[b]-competition[a])
+
+.slice(0,5)
+
+.forEach(text=>{
+
+const div=document.createElement("div");
+
+div.className="leader";
+
+div.innerText=text+" ⭐ "+competition[text];
+
+board.appendChild(div);
+
+});
+
+}
+
+/* MEME CREATOR */
+
+function createMeme(){
+
+const canvas=document.getElementById("memeCanvas");
+
+const ctx=canvas.getContext("2d");
+
+const img=new Image();
+
+img.src="https://i.imgflip.com/30b1gx.jpg";
+
+img.onload=function(){
+
+ctx.drawImage(img,0,0,400,400);
+
+ctx.font="30px Impact";
+
+ctx.fillStyle="white";
+
+ctx.strokeStyle="black";
+
+ctx.lineWidth=3;
+
+ctx.textAlign="center";
+
+ctx.fillText(document.getElementById("memeTop").value,200,40);
+
+ctx.strokeText(document.getElementById("memeTop").value,200,40);
+
+ctx.fillText(document.getElementById("memeBottom").value,200,380);
+
+ctx.strokeText(document.getElementById("memeBottom").value,200,380);
+
+};
+
+}
+
+function downloadMeme(){
+
+const canvas=document.getElementById("memeCanvas");
+
+const link=document.createElement("a");
+
+link.download="meme.png";
+
+link.href=canvas.toDataURL();
+
+link.click();
 
 }
 
 </script>
-
-</body>
-</html>

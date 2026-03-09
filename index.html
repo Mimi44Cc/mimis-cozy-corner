@@ -23,7 +23,7 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,.45);
+background:rgba(0,0,0,.5);
 padding:15px;
 z-index:10;
 }
@@ -73,7 +73,7 @@ cursor:pointer;
 padding:90px 20px;
 }
 
-/* CARDS */
+/* STORE GRID */
 
 .cards{
 display:grid;
@@ -94,7 +94,28 @@ width:100%;
 border-radius:10px;
 }
 
-/* INFINITE FEED */
+/* DESIGNER */
+
+.shirt-preview{
+position:relative;
+width:300px;
+margin:auto;
+}
+
+.shirt-preview img{
+width:100%;
+}
+
+#design-text{
+position:absolute;
+top:120px;
+left:0;
+right:0;
+font-size:26px;
+font-weight:bold;
+}
+
+/* FEED */
 
 .feed{
 max-width:800px;
@@ -108,16 +129,6 @@ margin:20px;
 border-radius:10px;
 }
 
-/* PROFILE */
-
-.profile{
-max-width:600px;
-margin:auto;
-background:rgba(255,255,255,.05);
-padding:30px;
-border-radius:12px;
-}
-
 </style>
 
 </head>
@@ -126,7 +137,7 @@ border-radius:12px;
 
 <nav>
 
-<a href="#">Home</a> <a href="#feed">Feed</a> <a href="#quotes">Quotes</a> <a href="#humor">Humor</a> <a href="#store">Store</a> <a href="#profile">Profile</a>
+<a href="#">Home</a> <a href="#feed">Feed</a> <a href="#quotes">Quotes</a> <a href="#humor">Humor</a> <a href="#designer">Designer</a> <a href="#store">Store</a> <a href="#community">Community</a>
 
 </nav>
 
@@ -136,17 +147,17 @@ border-radius:12px;
 
 <p>Designs • Humor • Creativity • Community</p>
 
-<button class="neon-btn" onclick="scrollToFeed()">Explore</button>
+<button class="neon-btn" onclick="scrollFeed()">Explore</button>
 
 </section>
 
 <section class="section" id="feed">
 
-<h2>Inspiration Feed</h2>
+<h2>Infinite Inspiration Feed</h2>
 
-<div class="feed" id="feedContainer"></div>
+<div class="feed" id="feed"></div>
 
-<button class="neon-btn" onclick="loadMore()">Load More</button>
+<button class="neon-btn" onclick="loadFeed()">Load More</button>
 
 </section>
 
@@ -154,29 +165,63 @@ border-radius:12px;
 
 <h2>Quote Generator</h2>
 
-<button class="neon-btn" onclick="generateQuote()">Generate Quote</button>
+<button class="neon-btn" onclick="quote()">Generate Quote</button>
 
 <p id="quote"></p>
 
-<button class="neon-btn" onclick="saveFavorite()">Save Favorite</button>
+<button class="neon-btn" onclick="saveQuote()">Save</button>
 
 </section>
 
 <section class="section" id="humor">
 
-<h2>Humor Generator</h2>
+<h2>Humor Generators</h2>
 
 <button class="neon-btn" onclick="dad()">Dad Joke</button>
 
 <p id="dad"></p>
 
+<button class="neon-btn" onclick="mom()">Mom Humor</button>
+
+<p id="mom"></p>
+
 <button class="neon-btn" onclick="sarcasm()">Sarcasm</button>
 
 <p id="sarcasm"></p>
 
-<button class="neon-btn" onclick="adult()">Edgy Humor</button>
+<button class="neon-btn" onclick="kid()">Kid Joke</button>
+
+<p id="kid"></p>
+
+<button class="neon-btn" onclick="adult()">Adult Humor</button>
 
 <p id="adult"></p>
+
+</section>
+
+<section class="section" id="designer">
+
+<h2>Create Your Shirt</h2>
+
+<div class="shirt-preview" id="canvas">
+
+<img src="https://i.imgur.com/6qK0F8K.png">
+
+<div id="design-text"></div>
+
+</div>
+
+<input id="textInput" placeholder="Type your design text">
+
+<br>
+
+<input type="color" id="textColor">
+
+<br>
+
+<button class="neon-btn" onclick="updateDesign()">Apply</button>
+
+<button class="neon-btn" onclick="download()">Download</button>
 
 </section>
 
@@ -214,21 +259,15 @@ border-radius:12px;
 
 </section>
 
-<section class="section" id="profile">
+<section class="section" id="community">
 
-<h2>Your Profile</h2>
+<h2>Community Feed</h2>
 
-<div class="profile">
+<input id="postInput" placeholder="Share a joke, quote, or idea">
 
-<input id="username" placeholder="Enter username">
+<button class="neon-btn" onclick="post()">Post</button>
 
-<button class="neon-btn" onclick="saveProfile()">Save Profile</button>
-
-<h3>Saved Favorites</h3>
-
-<div id="favorites"></div>
-
-</div>
+<div id="posts"></div>
 
 </section>
 
@@ -242,33 +281,33 @@ border-radius:12px;
 
 /* FEED */
 
-const ideas=[
+const feedIdeas=[
 
-"Coffee First. People Later",
-
-"Powered by Chaos and Snacks",
-
-"World's Okayest Adult",
+"Coffee First People Later",
 
 "Running Late Is My Cardio",
 
-"Sarcasm Loading..."
+"Sarcasm Loading",
+
+"Powered By Chaos And Snacks",
+
+"World's Okayest Adult"
 
 ];
 
-function loadMore(){
+function loadFeed(){
 
-const container=document.getElementById("feedContainer");
+const feed=document.getElementById("feed");
 
-for(let i=0;i<3;i++){
+for(let i=0;i<4;i++){
 
 const div=document.createElement("div");
 
 div.className="feed-item";
 
-div.innerText=ideas[Math.floor(Math.random()*ideas.length)];
+div.innerText=feedIdeas[Math.floor(Math.random()*feedIdeas.length)];
 
-container.appendChild(div);
+feed.appendChild(div);
 
 }
 
@@ -276,7 +315,7 @@ container.appendChild(div);
 
 /* QUOTES */
 
-function generateQuote(){
+function quote(){
 
 const quotes=[
 
@@ -296,19 +335,43 @@ quotes[Math.floor(Math.random()*quotes.length)];
 
 }
 
+function saveQuote(){
+
+let saved=JSON.parse(localStorage.getItem("quotes")||"[]");
+
+saved.push(document.getElementById("quote").innerText);
+
+localStorage.setItem("quotes",JSON.stringify(saved));
+
+}
+
 /* HUMOR */
 
 function dad(){
 
 const jokes=[
 
-"I'm reading a book about anti-gravity. It's impossible to put down",
+"I used to hate facial hair… but it grew on me",
 
-"I used to hate facial hair… but it grew on me"
+"I'm reading a book about anti-gravity… impossible to put down"
 
 ];
 
 document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function mom(){
+
+const jokes=[
+
+"If it's quiet something is wrong",
+
+"Mom mode activated"
+
+];
+
+document.getElementById("mom").innerText=jokes[Math.floor(Math.random()*jokes.length)];
 
 }
 
@@ -326,13 +389,27 @@ document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*joke
 
 }
 
+function kid(){
+
+const jokes=[
+
+"Why did the cookie go to the doctor? Because it felt crummy",
+
+"Why did the computer go to school? To improve its memory"
+
+];
+
+document.getElementById("kid").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
 function adult(){
 
 const jokes=[
 
-"Powered by caffeine and poor decisions",
+"Running late is my cardio",
 
-"Running late is my cardio"
+"Powered by caffeine and chaos"
 
 ];
 
@@ -340,49 +417,39 @@ document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.
 
 }
 
-/* PROFILE */
+/* DESIGNER */
 
-function saveProfile(){
+function updateDesign(){
 
-localStorage.setItem("username",document.getElementById("username").value);
+const text=document.getElementById("textInput").value;
 
-}
+const color=document.getElementById("textColor").value;
 
-function saveFavorite(){
+const el=document.getElementById("design-text");
 
-const quote=document.getElementById("quote").innerText;
+el.innerText=text;
 
-let fav=JSON.parse(localStorage.getItem("favorites")||"[]");
-
-fav.push(quote);
-
-localStorage.setItem("favorites",JSON.stringify(fav));
-
-displayFavorites();
+el.style.color=color;
 
 }
 
-function displayFavorites(){
+/* COMMUNITY */
 
-const fav=JSON.parse(localStorage.getItem("favorites")||"[]");
+function post(){
 
-const box=document.getElementById("favorites");
-
-box.innerHTML="";
-
-fav.forEach(q=>{
+const text=document.getElementById("postInput").value;
 
 const div=document.createElement("div");
 
-div.innerText=q;
+div.className="feed-item";
 
-box.appendChild(div);
+div.innerText=text;
 
-});
+document.getElementById("posts").prepend(div);
+
+document.getElementById("postInput").value="";
 
 }
-
-displayFavorites();
 
 </script>
 

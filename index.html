@@ -173,7 +173,43 @@ box-shadow:0 0 25px #22D3EE;
 }
 
 /* FOOTER */
+<section class="section">
 
+<div class="glass">
+
+<h2>Design Your Own T-Shirt</h2>
+
+<p>Create your custom design below.</p>
+
+<div id="designer">
+
+<div class="shirt-preview">
+<img id="shirt" src="https://i.imgur.com/6qK0F8K.png">
+<div id="design-text"></div>
+<img id="design-image">
+</div>
+
+<br>
+
+<input type="text" id="textInput" placeholder="Enter your text">
+
+<br><br>
+
+<input type="color" id="textColor">
+
+<br><br>
+
+<input type="file" id="imageUpload">
+
+<br><br>
+
+<button class="neon-btn">Add to Order</button>
+
+</div>
+
+</div>
+
+</section>
 footer{
 padding:40px;
 opacity:.7;
@@ -343,6 +379,60 @@ text-shadow:
 <footer>
 <p>© Mimi's Cozy Corner</p>
 </footer>
+<script>
 
+const textInput = document.getElementById("textInput");
+const designText = document.getElementById("design-text");
+const textColor = document.getElementById("textColor");
+const imageUpload = document.getElementById("imageUpload");
+const designImage = document.getElementById("design-image");
+
+textInput.addEventListener("input", () => {
+designText.textContent = textInput.value;
+});
+
+textColor.addEventListener("input", () => {
+designText.style.color = textColor.value;
+});
+
+imageUpload.addEventListener("change", function(){
+const file = this.files[0];
+if(file){
+const reader = new FileReader();
+reader.onload = function(e){
+designImage.src = e.target.result;
+};
+reader.readAsDataURL(file);
+}
+});
+
+</script>
 </body>
 </html>
+.shirt-preview{
+position:relative;
+width:300px;
+margin:auto;
+}
+
+.shirt-preview img{
+width:100%;
+}
+
+#design-text{
+position:absolute;
+top:120px;
+left:0;
+right:0;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+}
+
+#design-image{
+position:absolute;
+top:100px;
+left:50%;
+transform:translateX(-50%);
+max-width:120px;
+}

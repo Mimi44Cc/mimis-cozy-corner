@@ -20,7 +20,7 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,.5);
+background:rgba(0,0,0,.6);
 padding:15px;
 z-index:10;
 }
@@ -261,7 +261,7 @@ border-radius:8px;
 
 <section class="section" id="guides">
 
-<h2>Creative Guides & Tutorials</h2>
+<h2>Creative Guides</h2>
 
 <div class="cards">
 
@@ -273,7 +273,7 @@ border-radius:8px;
 </div>
 
 <div class="card">
-<h3>Meme Creation Guide</h3>
+<h3>Meme Guide</h3>
 <a href="guides/meme-guide.pdf" target="_blank">
 <button class="neon-btn">Download PDF</button>
 </a>
@@ -315,23 +315,7 @@ frameborder="0" allowfullscreen></iframe>
 
 <p>$24.99</p>
 
-<a href="https://printful.com" target="_blank">
-<button class="neon-btn">Buy (Print-on-Demand)</button>
-</a>
-
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
-
-<h3>Cosmic Hoodie</h3>
-
-<p>$39.99</p>
-
-<a href="https://printify.com" target="_blank">
-<button class="neon-btn">Buy (Print-on-Demand)</button>
-</a>
+<div id="paypal-button-container"></div>
 
 </div>
 
@@ -345,7 +329,37 @@ frameborder="0" allowfullscreen></iframe>
 
 </footer>
 
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+
 <script>
+
+paypal.Buttons({
+
+createOrder:function(data,actions){
+
+return actions.order.create({
+
+purchase_units:[{
+
+amount:{value:'24.99'}
+
+}]
+
+});
+
+},
+
+onApprove:function(data,actions){
+
+return actions.order.capture().then(function(details){
+
+alert('Payment completed by '+details.payer.name.given_name);
+
+});
+
+}
+
+}).render('#paypal-button-container');
 
 const feedIdeas=[
 "Coffee First People Later",
@@ -362,8 +376,11 @@ const feed=document.getElementById("feed");
 for(let i=0;i<3;i++){
 
 const div=document.createElement("div");
+
 div.className="feed-item";
+
 div.innerText=feedIdeas[Math.floor(Math.random()*feedIdeas.length)];
+
 feed.appendChild(div);
 
 }
@@ -420,9 +437,11 @@ document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.
 function createMeme(){
 
 const canvas=document.getElementById("memeCanvas");
+
 const ctx=canvas.getContext("2d");
 
 const img=new Image();
+
 img.src="https://i.imgflip.com/30b1gx.jpg";
 
 img.onload=function(){
@@ -481,7 +500,9 @@ box.innerHTML="";
 ideas.forEach(i=>{
 
 const div=document.createElement("div");
+
 div.className="feed-item";
+
 div.innerText=i;
 
 box.appendChild(div);
@@ -541,8 +562,11 @@ const board=document.getElementById("leaderboard");
 board.innerHTML="";
 
 Object.keys(competition)
+
 .sort((a,b)=>competition[b]-competition[a])
+
 .slice(0,5)
+
 .forEach(t=>{
 
 const div=document.createElement("div");

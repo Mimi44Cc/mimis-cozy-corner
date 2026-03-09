@@ -51,6 +51,10 @@ background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
 -webkit-text-fill-color:transparent;
 }
 
+.section{
+padding:90px 20px;
+}
+
 .neon-btn{
 padding:12px 24px;
 margin:10px;
@@ -59,10 +63,6 @@ border-radius:10px;
 background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
 color:white;
 cursor:pointer;
-}
-
-.section{
-padding:90px 20px;
 }
 
 .feed{
@@ -161,6 +161,24 @@ border-radius:8px;
 
 </section>
 
+<section class="section">
+
+<h2>Humor Generator</h2>
+
+<button class="neon-btn" onclick="dad()">Dad Joke</button>
+
+<p id="dad"></p>
+
+<button class="neon-btn" onclick="sarcasm()">Sarcasm</button>
+
+<p id="sarcasm"></p>
+
+<button class="neon-btn" onclick="adult()">Adult Humor</button>
+
+<p id="adult"></p>
+
+</section>
+
 <section class="section" id="meme">
 
 <h2>Meme Creator</h2>
@@ -243,7 +261,7 @@ border-radius:8px;
 
 <section class="section" id="guides">
 
-<h2>Creative Guides</h2>
+<h2>Creative Guides & Tutorials</h2>
 
 <div class="cards">
 
@@ -255,7 +273,7 @@ border-radius:8px;
 </div>
 
 <div class="card">
-<h3>Meme Guide</h3>
+<h3>Meme Creation Guide</h3>
 <a href="guides/meme-guide.pdf" target="_blank">
 <button class="neon-btn">Download PDF</button>
 </a>
@@ -268,21 +286,15 @@ border-radius:8px;
 <div class="cards">
 
 <div class="card">
-
 <iframe width="100%" height="200"
 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-frameborder="0"
-allowfullscreen></iframe>
-
+frameborder="0" allowfullscreen></iframe>
 </div>
 
 <div class="card">
-
 <iframe width="100%" height="200"
 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-frameborder="0"
-allowfullscreen></iframe>
-
+frameborder="0" allowfullscreen></iframe>
 </div>
 
 </div>
@@ -303,7 +315,9 @@ allowfullscreen></iframe>
 
 <p>$24.99</p>
 
-<button class="neon-btn">Buy</button>
+<a href="https://printful.com" target="_blank">
+<button class="neon-btn">Buy (Print-on-Demand)</button>
+</a>
 
 </div>
 
@@ -315,7 +329,9 @@ allowfullscreen></iframe>
 
 <p>$39.99</p>
 
-<button class="neon-btn">Buy</button>
+<a href="https://printify.com" target="_blank">
+<button class="neon-btn">Buy (Print-on-Demand)</button>
+</a>
 
 </div>
 
@@ -346,11 +362,8 @@ const feed=document.getElementById("feed");
 for(let i=0;i<3;i++){
 
 const div=document.createElement("div");
-
 div.className="feed-item";
-
 div.innerText=feedIdeas[Math.floor(Math.random()*feedIdeas.length)];
-
 feed.appendChild(div);
 
 }
@@ -371,14 +384,45 @@ quotes[Math.floor(Math.random()*quotes.length)];
 
 }
 
+function dad(){
+
+const jokes=[
+"I used to hate facial hair… but it grew on me",
+"I'm reading a book about anti-gravity… impossible to put down"
+];
+
+document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function sarcasm(){
+
+const jokes=[
+"I'm not arguing I'm explaining why I'm right",
+"My patience left the chat"
+];
+
+document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function adult(){
+
+const jokes=[
+"Running late is my cardio",
+"Powered by caffeine and chaos"
+];
+
+document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
 function createMeme(){
 
 const canvas=document.getElementById("memeCanvas");
-
 const ctx=canvas.getContext("2d");
 
 const img=new Image();
-
 img.src="https://i.imgflip.com/30b1gx.jpg";
 
 img.onload=function(){
@@ -386,21 +430,15 @@ img.onload=function(){
 ctx.drawImage(img,0,0,400,400);
 
 ctx.font="30px Impact";
-
 ctx.fillStyle="white";
-
 ctx.strokeStyle="black";
-
 ctx.lineWidth=3;
-
 ctx.textAlign="center";
 
 ctx.fillText(document.getElementById("memeTop").value,200,40);
-
 ctx.strokeText(document.getElementById("memeTop").value,200,40);
 
 ctx.fillText(document.getElementById("memeBottom").value,200,380);
-
 ctx.strokeText(document.getElementById("memeBottom").value,200,380);
 
 };
@@ -410,13 +448,11 @@ ctx.strokeText(document.getElementById("memeBottom").value,200,380);
 function applyDesign(){
 
 const text=document.getElementById("shirtText").value;
-
 const color=document.getElementById("textColor").value;
 
 const el=document.getElementById("designText");
 
 el.innerText=text;
-
 el.style.color=color;
 
 }
@@ -445,9 +481,7 @@ box.innerHTML="";
 ideas.forEach(i=>{
 
 const div=document.createElement("div");
-
 div.className="feed-item";
-
 div.innerText=i;
 
 box.appendChild(div);
@@ -507,11 +541,8 @@ const board=document.getElementById("leaderboard");
 board.innerHTML="";
 
 Object.keys(competition)
-
 .sort((a,b)=>competition[b]-competition[a])
-
 .slice(0,5)
-
 .forEach(t=>{
 
 const div=document.createElement("div");

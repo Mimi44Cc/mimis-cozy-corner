@@ -4,7 +4,6 @@
 <head>
 
 <title>Mimi's Cozy Corner</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
@@ -18,8 +17,6 @@ background:#020617;
 color:white;
 text-align:center;
 }
-
-/* NAV */
 
 nav{
 position:fixed;
@@ -36,8 +33,6 @@ margin:15px;
 text-decoration:none;
 font-weight:600;
 }
-
-/* HERO */
 
 .hero{
 height:100vh;
@@ -59,7 +54,9 @@ background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
 -webkit-text-fill-color:transparent;
 }
 
-/* BUTTON */
+.section{
+padding:90px 20px;
+}
 
 .neon-btn{
 padding:12px 24px;
@@ -70,14 +67,6 @@ background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
 color:white;
 cursor:pointer;
 }
-
-/* SECTION */
-
-.section{
-padding:90px 20px;
-}
-
-/* FEED */
 
 .feed{
 max-width:800px;
@@ -91,12 +80,24 @@ margin:20px;
 border-radius:10px;
 }
 
-/* DESIGNER */
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+max-width:1000px;
+margin:auto;
+}
+
+.card{
+background:rgba(255,255,255,.07);
+padding:20px;
+border-radius:12px;
+}
 
 .designer{
+position:relative;
 width:320px;
 margin:auto;
-position:relative;
 }
 
 .designer img{
@@ -116,25 +117,9 @@ cursor:move;
 .design-image{
 position:absolute;
 top:140px;
-left:90px;
+left:100px;
 width:100px;
 cursor:move;
-}
-
-/* CARD */
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-max-width:1000px;
-margin:auto;
-}
-
-.card{
-background:rgba(255,255,255,.07);
-padding:20px;
-border-radius:12px;
 }
 
 </style>
@@ -152,7 +137,8 @@ border-radius:12px;
 <section class="hero">
 
 <h1>Mimi's Cozy Corner</h1>
-<p>The Internet's Creative Playground</p>
+
+<p>Create • Share • Print Your Ideas</p>
 
 </section>
 
@@ -170,7 +156,7 @@ border-radius:12px;
 
 <section class="section" id="challenge">
 
-<h2>Daily Challenge</h2>
+<h2>Daily Creative Challenge</h2>
 
 <button class="neon-btn" onclick="challenge()">Generate Challenge</button>
 
@@ -192,7 +178,7 @@ border-radius:12px;
 
 <h2>Creative Generators</h2>
 
-<button class="neon-btn" onclick="quote()">Quote</button>
+<button class="neon-btn" onclick="quote()">Quote Generator</button>
 
 <p id="quote"></p>
 
@@ -229,17 +215,33 @@ border-radius:12px;
 
 <section class="section" id="designer">
 
-<h2>Design Your Shirt</h2>
+<h2>Design Your Product</h2>
+
+<label>Choose Product</label>
+
+<select id="productSelect">
+
+<option value="shirt">T-Shirt</option>
+<option value="hoodie">Hoodie</option>
+<option value="mug">Mug</option>
+<option value="poster">Poster</option>
+<option value="hat">Hat</option>
+
+</select>
+
+<br><br>
 
 <div class="designer">
 
-<img src="https://i.imgur.com/6qK0F8K.png">
+<img id="productBase" src="https://i.imgur.com/6qK0F8K.png">
 
-<div id="text" class="design-text"></div>
+<div id="designText" class="design-text"></div>
 
-<img id="image" class="design-image">
+<img id="designImage" class="design-image">
 
 </div>
+
+<br>
 
 <input id="shirtText" placeholder="Add text">
 
@@ -249,7 +251,7 @@ border-radius:12px;
 
 <br>
 
-<button class="neon-btn" onclick="apply()">Apply</button>
+<button class="neon-btn" onclick="apply()">Apply Design</button>
 
 </section>
 
@@ -257,9 +259,9 @@ border-radius:12px;
 
 <h2>Creator Marketplace</h2>
 
-<input id="idea" placeholder="Submit design idea">
+<input id="ideaInput" placeholder="Submit design idea">
 
-<button class="neon-btn" onclick="idea()">Submit</button>
+<button class="neon-btn" onclick="submitIdea()">Submit</button>
 
 <div id="ideas"></div>
 
@@ -269,9 +271,9 @@ border-radius:12px;
 
 <h2>Design Competition</h2>
 
-<input id="comp" placeholder="Enter design">
+<input id="compInput" placeholder="Enter design">
 
-<button class="neon-btn" onclick="comp()">Submit</button>
+<button class="neon-btn" onclick="submitComp()">Submit</button>
 
 <div id="competition"></div>
 
@@ -312,9 +314,7 @@ border-radius:12px;
 /* EMAIL */
 
 function subscribe(){
-
 document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner";
-
 }
 
 /* CHALLENGE */
@@ -325,20 +325,21 @@ const c=[
 "Design a sarcastic shirt",
 "Create a viral meme",
 "Make a neon retro shirt",
-"Create a motivational design"
+"Create a motivational quote design"
 ];
 
-document.getElementById("challengeText").innerText=c[Math.floor(Math.random()*c.length)];
+document.getElementById("challengeText").innerText=
+c[Math.floor(Math.random()*c.length)];
 
 }
 
 /* FEED */
 
 const posts=[
-"Coffee first people later",
-"Sarcasm loading",
-"Powered by chaos",
-"Running late is my cardio"
+"Coffee First People Later",
+"Sarcasm Loading",
+"Powered by Chaos",
+"Running Late Is My Cardio"
 ];
 
 function feed(){
@@ -359,13 +360,18 @@ f.appendChild(div);
 
 }
 
-/* QUOTES */
+/* QUOTE */
 
 function quote(){
 
-const q=["Stay cozy stay bold","Dream bigger","Creativity wins"];
+const q=[
+"Stay cozy stay bold",
+"Dream bigger than yesterday",
+"Creativity is your superpower"
+];
 
-document.getElementById("quote").innerText=q[Math.floor(Math.random()*q.length)];
+document.getElementById("quote").innerText=
+q[Math.floor(Math.random()*q.length)];
 
 }
 
@@ -373,25 +379,25 @@ document.getElementById("quote").innerText=q[Math.floor(Math.random()*q.length)]
 
 function dad(){
 
-const j=["I used to hate facial hair but it grew on me"];
+const j=[
+"I used to hate facial hair… but it grew on me"
+];
 
-document.getElementById("dad").innerText=j[Math.floor(Math.random()*j.length)];
+document.getElementById("dad").innerText=j[0];
 
 }
 
 function sarcasm(){
 
-const j=["I'm not arguing I'm explaining why I'm right"];
-
-document.getElementById("sarcasm").innerText=j[Math.floor(Math.random()*j.length)];
+document.getElementById("sarcasm").innerText=
+"I'm not arguing I'm explaining why I'm right";
 
 }
 
 function adult(){
 
-const j=["Powered by caffeine and chaos"];
-
-document.getElementById("adult").innerText=j[Math.floor(Math.random()*j.length)];
+document.getElementById("adult").innerText=
+"Powered by caffeine and chaos";
 
 }
 
@@ -427,15 +433,19 @@ ctx.fillText(document.getElementById("bottom").value,200,380);
 
 }
 
-/* DESIGNER */
+/* DESIGN TEXT */
 
 function apply(){
 
-document.getElementById("text").innerText=document.getElementById("shirtText").value;
+document.getElementById("designText").innerText=
+document.getElementById("shirtText").value;
 
-document.getElementById("text").style.color=document.getElementById("color").value;
+document.getElementById("designText").style.color=
+document.getElementById("color").value;
 
 }
+
+/* IMAGE UPLOAD */
 
 document.getElementById("upload").onchange=function(e){
 
@@ -443,20 +453,19 @@ const reader=new FileReader();
 
 reader.onload=function(){
 
-document.getElementById("image").src=reader.result;
+document.getElementById("designImage").src=reader.result;
 
 };
 
 reader.readAsDataURL(e.target.files[0]);
 
-}
+};
 
 /* DRAG */
 
 interact('.design-text,.design-image').draggable({
 
 listeners:{
-
 move(event){
 
 const target=event.target;
@@ -472,8 +481,26 @@ target.setAttribute('data-x',x);
 target.setAttribute('data-y',y);
 
 }
-
 }
+
+});
+
+/* PRODUCT SWITCH */
+
+const productImages={
+
+shirt:"https://i.imgur.com/6qK0F8K.png",
+hoodie:"https://i.imgur.com/Z6X7YkE.png",
+mug:"https://i.imgur.com/Yz9q7gU.png",
+poster:"https://i.imgur.com/e9yq9QZ.png",
+hat:"https://i.imgur.com/6lG3E7M.png"
+
+};
+
+document.getElementById("productSelect").addEventListener("change",function(){
+
+document.getElementById("productBase").src=
+productImages[this.value];
 
 });
 
@@ -506,5 +533,4 @@ alert("Payment completed");
 </script>
 
 </body>
-
 </html>

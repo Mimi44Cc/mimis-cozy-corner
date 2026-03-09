@@ -13,7 +13,7 @@ body{
 margin:0;
 font-family:Segoe UI,sans-serif;
 background:#020617;
-color:#F9FAFB;
+color:white;
 text-align:center;
 }
 
@@ -23,7 +23,7 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,.4);
+background:rgba(0,0,0,.5);
 padding:15px;
 z-index:10;
 }
@@ -32,7 +32,6 @@ nav a{
 color:white;
 margin:20px;
 text-decoration:none;
-font-weight:600;
 }
 
 /* HERO */
@@ -74,7 +73,7 @@ cursor:pointer;
 padding:90px 20px;
 }
 
-/* STORE */
+/* STORE GRID */
 
 .cards{
 display:grid;
@@ -95,28 +94,7 @@ width:100%;
 border-radius:10px;
 }
 
-/* DESIGNER */
-
-.shirt-preview{
-position:relative;
-width:320px;
-margin:auto;
-}
-
-.shirt-preview img{
-width:100%;
-}
-
-#design-text{
-position:absolute;
-top:120px;
-left:0;
-right:0;
-font-size:26px;
-font-weight:bold;
-}
-
-/* GENERATORS */
+/* GENERATOR */
 
 .generator{
 max-width:600px;
@@ -126,16 +104,24 @@ padding:30px;
 border-radius:12px;
 }
 
-footer{
-padding:40px;
-opacity:.7;
+/* COMMUNITY */
+
+.community{
+max-width:800px;
+margin:auto;
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:12px;
+}
+
+.post{
+background:rgba(255,255,255,.08);
+padding:15px;
+margin:15px;
+border-radius:8px;
 }
 
 </style>
-
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </head>
 
@@ -143,7 +129,7 @@ opacity:.7;
 
 <nav>
 
-<a href="#">Home</a> <a href="#store">Store</a> <a href="#designer">Designer</a> <a href="#humor">Humor</a> <a href="#ideas">Ideas</a>
+<a href="#">Home</a> <a href="#quotes">Quotes</a> <a href="#memes">Memes</a> <a href="#store">Store</a> <a href="#community">Community</a>
 
 </nav>
 
@@ -151,15 +137,45 @@ opacity:.7;
 
 <h1>Mimi's Cozy Corner</h1>
 
-<p>A Universe of Designs, Humor & Creativity</p>
+<p>Creativity • Humor • Designs • Community</p>
 
-<button class="neon-btn">Explore</button>
+<button class="neon-btn">Explore Creativity</button>
+
+</section>
+
+<section class="section" id="quotes">
+
+<h2>Quote Generator</h2>
+
+<div class="generator">
+
+<button class="neon-btn" onclick="quote()">Generate Quote</button>
+
+<p id="quote"></p>
+
+<button class="neon-btn" onclick="shareQuote()">Share Quote</button>
+
+</div>
+
+</section>
+
+<section class="section" id="memes">
+
+<h2>Meme / Viral Saying Generator</h2>
+
+<div class="generator">
+
+<button class="neon-btn" onclick="meme()">Generate Meme Idea</button>
+
+<p id="meme"></p>
+
+</div>
 
 </section>
 
 <section class="section" id="store">
 
-<h2>Creative Merch Store</h2>
+<h2>Creative Merch</h2>
 
 <div class="cards">
 
@@ -203,73 +219,19 @@ opacity:.7;
 
 </section>
 
-<section class="section" id="designer">
+<section class="section" id="community">
 
-<h2>Create Your Design</h2>
+<h2>Community Design Feed</h2>
 
-<div class="shirt-preview" id="designerCanvas">
+<div class="community">
 
-<img src="https://i.imgur.com/6qK0F8K.png">
-
-<div id="design-text"></div>
-
-</div>
-
-<input type="text" id="textInput" placeholder="Enter quote or design text">
-
-<button class="neon-btn" onclick="updateDesign()">Apply</button>
+<input type="text" id="userPost" placeholder="Share a quote, joke, or design idea">
 
 <br>
 
-<label>Text Color</label>
+<button class="neon-btn" onclick="post()">Submit</button>
 
-<input type="color" id="textColor">
-
-<br>
-
-<button class="neon-btn" id="downloadBtn">Download Design</button>
-
-</section>
-
-<section class="section" id="humor">
-
-<h2>Humor Generators</h2>
-
-<div class="generator">
-
-<button class="neon-btn" onclick="dadJoke()">Dad Joke</button>
-
-<p id="dad"></p>
-
-<button class="neon-btn" onclick="momJoke()">Mom Humor</button>
-
-<p id="mom"></p>
-
-<button class="neon-btn" onclick="sarcasm()">Sarcasm</button>
-
-<p id="sarcasm"></p>
-
-<button class="neon-btn" onclick="kidJoke()">Kid Joke</button>
-
-<p id="kid"></p>
-
-<button class="neon-btn" onclick="adult()">Edgy Humor</button>
-
-<p id="adult"></p>
-
-</div>
-
-</section>
-
-<section class="section" id="ideas">
-
-<h2>Design Idea Generator</h2>
-
-<div class="generator">
-
-<button class="neon-btn" onclick="idea()">Generate Design Idea</button>
-
-<p id="idea"></p>
+<div id="feed"></div>
 
 </div>
 
@@ -283,139 +245,84 @@ opacity:.7;
 
 <script>
 
-function updateDesign(){
+/* QUOTES */
 
-const text=document.getElementById("textInput").value;
+function quote(){
 
-const color=document.getElementById("textColor").value;
+const quotes=[
 
-const element=document.getElementById("design-text");
+"Dream bigger than yesterday",
 
-element.innerText=text;
+"Your creativity is your superpower",
 
-element.style.color=color;
+"Stay cozy stay bold",
 
-}
+"Create something amazing today",
 
-/* DOWNLOAD DESIGN */
-
-document.getElementById("downloadBtn").onclick=function(){
-
-html2canvas(document.getElementById("designerCanvas")).then(canvas=>{
-
-const link=document.createElement("a");
-
-link.download="design.png";
-
-link.href=canvas.toDataURL();
-
-link.click();
-
-});
-
-};
-
-/* HUMOR */
-
-function dadJoke(){
-
-const jokes=[
-
-"I used to hate facial hair… but it grew on me",
-
-"I'm not sleeping, I'm just charging my dad batteries",
-
-"I only know 25 letters of the alphabet. I don't know Y"
+"Art is freedom"
 
 ];
 
-document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+document.getElementById("quote").innerText=quotes[Math.floor(Math.random()*quotes.length)];
 
 }
 
-function momJoke(){
+/* SHARE */
 
-const jokes=[
+function shareQuote(){
 
-"If it's quiet, something is wrong",
+const text=document.getElementById("quote").innerText;
 
-"Mom mode: activated",
+navigator.clipboard.writeText(text);
 
-"I whisper snacks so the kids can't hear me panic"
-
-];
-
-document.getElementById("mom").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+alert("Quote copied! Share it on social media.");
 
 }
 
-function sarcasm(){
+/* MEMES */
 
-const jokes=[
+function meme(){
 
-"I'm not arguing I'm explaining why I'm right",
+const memes=[
 
-"My patience left the chat",
-
-"Sure I'd love to help… said no one ever"
-
-];
-
-document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*jokes.length)];
-
-}
-
-function kidJoke(){
-
-const jokes=[
-
-"Why did the cookie go to the doctor? Because it felt crummy",
-
-"Why did the computer go to school? To improve its memory"
-
-];
-
-document.getElementById("kid").innerText=jokes[Math.floor(Math.random()*jokes.length)];
-
-}
-
-function adult(){
-
-const jokes=[
+"Powered by coffee and chaos",
 
 "Running late is my cardio",
 
-"Powered by caffeine and poor decisions",
+"My brain has too many tabs open",
 
-"My brain has too many tabs open"
+"Sarcasm loading… please wait",
+
+"World's okayest adult"
 
 ];
 
-document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+document.getElementById("meme").innerText=memes[Math.floor(Math.random()*memes.length)];
 
 }
 
-function idea(){
+/* COMMUNITY POSTS */
 
-const ideas=[
+function post(){
 
-"Retro neon motivational quote shirt",
+const text=document.getElementById("userPost").value;
 
-"Funny cat meme design",
+if(text==="") return;
 
-"Minimalist affirmation poster",
+const div=document.createElement("div");
 
-"Sarcastic office humor tee",
+div.className="post";
 
-"Streetwear graffiti hoodie"
+div.innerText=text;
 
-];
+document.getElementById("feed").prepend(div);
 
-document.getElementById("idea").innerText=ideas[Math.floor(Math.random()*ideas.length)];
+document.getElementById("userPost").value="";
 
 }
 
 </script>
 
 </body>
+
 </html>

@@ -4,7 +4,6 @@
 <head>
 
 <title>Mimi's Cozy Corner</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -17,13 +16,13 @@ color:white;
 text-align:center;
 }
 
-/* NAVBAR */
+/* NAV */
 
 nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,.5);
+background:rgba(0,0,0,.45);
 padding:15px;
 z-index:10;
 }
@@ -73,7 +72,7 @@ cursor:pointer;
 padding:90px 20px;
 }
 
-/* STORE GRID */
+/* CARDS */
 
 .cards{
 display:grid;
@@ -121,6 +120,15 @@ margin:15px;
 border-radius:8px;
 }
 
+/* LEADERBOARD */
+
+.leader{
+background:rgba(255,255,255,.07);
+padding:15px;
+margin:10px;
+border-radius:8px;
+}
+
 </style>
 
 </head>
@@ -129,7 +137,7 @@ border-radius:8px;
 
 <nav>
 
-<a href="#">Home</a> <a href="#quotes">Quotes</a> <a href="#memes">Memes</a> <a href="#store">Store</a> <a href="#community">Community</a>
+<a href="#">Home</a> <a href="#quotes">Quotes</a> <a href="#memes">Memes</a> <a href="#ideas">Ideas</a> <a href="#store">Store</a> <a href="#community">Community</a> <a href="#trending">Trending</a>
 
 </nav>
 
@@ -137,7 +145,7 @@ border-radius:8px;
 
 <h1>Mimi's Cozy Corner</h1>
 
-<p>Creativity • Humor • Designs • Community</p>
+<p>Designs • Humor • Creativity • Community</p>
 
 <button class="neon-btn">Explore Creativity</button>
 
@@ -153,7 +161,7 @@ border-radius:8px;
 
 <p id="quote"></p>
 
-<button class="neon-btn" onclick="shareQuote()">Share Quote</button>
+<button class="neon-btn" onclick="copyQuote()">Copy Quote</button>
 
 </div>
 
@@ -161,13 +169,35 @@ border-radius:8px;
 
 <section class="section" id="memes">
 
-<h2>Meme / Viral Saying Generator</h2>
+<h2>Humor Generator</h2>
 
 <div class="generator">
 
-<button class="neon-btn" onclick="meme()">Generate Meme Idea</button>
+<button class="neon-btn" onclick="dad()">Dad Joke</button>
 
-<p id="meme"></p>
+<p id="dad"></p>
+
+<button class="neon-btn" onclick="sarcasm()">Sarcasm</button>
+
+<p id="sarcasm"></p>
+
+<button class="neon-btn" onclick="adult()">Edgy Humor</button>
+
+<p id="adult"></p>
+
+</div>
+
+</section>
+
+<section class="section" id="ideas">
+
+<h2>Creative Design Idea Generator</h2>
+
+<div class="generator">
+
+<button class="neon-btn" onclick="idea()">Generate Idea</button>
+
+<p id="idea"></p>
 
 </div>
 
@@ -221,7 +251,7 @@ border-radius:8px;
 
 <section class="section" id="community">
 
-<h2>Community Design Feed</h2>
+<h2>Community Feed</h2>
 
 <div class="community">
 
@@ -234,6 +264,14 @@ border-radius:8px;
 <div id="feed"></div>
 
 </div>
+
+</section>
+
+<section class="section" id="trending">
+
+<h2>Trending Ideas</h2>
+
+<div id="leaderboard"></div>
 
 </section>
 
@@ -253,13 +291,15 @@ const quotes=[
 
 "Dream bigger than yesterday",
 
-"Your creativity is your superpower",
+"Creativity is your superpower",
 
 "Stay cozy stay bold",
 
 "Create something amazing today",
 
-"Art is freedom"
+"Art is freedom",
+
+"Your imagination is limitless"
 
 ];
 
@@ -267,41 +307,83 @@ document.getElementById("quote").innerText=quotes[Math.floor(Math.random()*quote
 
 }
 
-/* SHARE */
+function copyQuote(){
 
-function shareQuote(){
+navigator.clipboard.writeText(document.getElementById("quote").innerText);
 
-const text=document.getElementById("quote").innerText;
-
-navigator.clipboard.writeText(text);
-
-alert("Quote copied! Share it on social media.");
+alert("Quote copied!");
 
 }
 
-/* MEMES */
+/* HUMOR */
 
-function meme(){
+function dad(){
 
-const memes=[
+const jokes=[
 
-"Powered by coffee and chaos",
+"I used to hate facial hair… but it grew on me",
 
-"Running late is my cardio",
-
-"My brain has too many tabs open",
-
-"Sarcasm loading… please wait",
-
-"World's okayest adult"
+"I'm reading a book about anti-gravity… it's impossible to put down"
 
 ];
 
-document.getElementById("meme").innerText=memes[Math.floor(Math.random()*memes.length)];
+document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
 
 }
 
-/* COMMUNITY POSTS */
+function sarcasm(){
+
+const jokes=[
+
+"I'm not arguing I'm explaining why I'm right",
+
+"My patience left the chat"
+
+];
+
+document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function adult(){
+
+const jokes=[
+
+"Running late is my cardio",
+
+"Powered by caffeine and chaos"
+
+];
+
+document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+/* IDEAS */
+
+function idea(){
+
+const ideas=[
+
+"Retro neon motivational shirt",
+
+"Funny cat meme hoodie",
+
+"Sarcastic office humor tee",
+
+"Minimalist affirmation poster",
+
+"Streetwear graffiti design"
+
+];
+
+document.getElementById("idea").innerText=ideas[Math.floor(Math.random()*ideas.length)];
+
+}
+
+/* COMMUNITY */
+
+let leaderboard={};
 
 function post(){
 
@@ -313,7 +395,23 @@ const div=document.createElement("div");
 
 div.className="post";
 
+const btn=document.createElement("button");
+
+btn.innerText="👍 Like";
+
+btn.onclick=function(){
+
+leaderboard[text]=(leaderboard[text]||0)+1;
+
+updateLeaderboard();
+
+};
+
 div.innerText=text;
+
+div.appendChild(document.createElement("br"));
+
+div.appendChild(btn);
 
 document.getElementById("feed").prepend(div);
 
@@ -321,8 +419,32 @@ document.getElementById("userPost").value="";
 
 }
 
+/* TRENDING */
+
+function updateLeaderboard(){
+
+const board=document.getElementById("leaderboard");
+
+board.innerHTML="";
+
+Object.keys(leaderboard)
+.sort((a,b)=>leaderboard[b]-leaderboard[a])
+.slice(0,5)
+.forEach(text=>{
+
+const div=document.createElement("div");
+
+div.className="leader";
+
+div.innerText=text+" ⭐ "+leaderboard[text];
+
+board.appendChild(div);
+
+});
+
+}
+
 </script>
 
 </body>
-
 </html>

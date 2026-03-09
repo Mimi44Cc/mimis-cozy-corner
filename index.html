@@ -4,6 +4,7 @@
 <head>
 
 <title>Mimi's Cozy Corner</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -12,11 +13,11 @@ body{
 margin:0;
 font-family:Segoe UI,sans-serif;
 background:#020617;
-color:white;
+color:#F9FAFB;
 text-align:center;
 }
 
-/* NAV */
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -31,6 +32,7 @@ nav a{
 color:white;
 margin:20px;
 text-decoration:none;
+font-weight:600;
 }
 
 /* HERO */
@@ -97,7 +99,7 @@ border-radius:10px;
 
 .shirt-preview{
 position:relative;
-width:300px;
+width:320px;
 margin:auto;
 }
 
@@ -110,11 +112,11 @@ position:absolute;
 top:120px;
 left:0;
 right:0;
-font-size:24px;
+font-size:26px;
 font-weight:bold;
 }
 
-/* GENERATOR BOX */
+/* GENERATORS */
 
 .generator{
 max-width:600px;
@@ -126,9 +128,14 @@ border-radius:12px;
 
 footer{
 padding:40px;
+opacity:.7;
 }
 
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </head>
 
@@ -136,7 +143,7 @@ padding:40px;
 
 <nav>
 
-<a href="#">Home</a> <a href="#store">Store</a> <a href="#designer">Designer</a> <a href="#quotes">Quotes</a> <a href="#ideas">Ideas</a>
+<a href="#">Home</a> <a href="#store">Store</a> <a href="#designer">Designer</a> <a href="#humor">Humor</a> <a href="#ideas">Ideas</a>
 
 </nav>
 
@@ -144,9 +151,9 @@ padding:40px;
 
 <h1>Mimi's Cozy Corner</h1>
 
-<p>A Universe of Creativity, Designs, and Inspiration</p>
+<p>A Universe of Designs, Humor & Creativity</p>
 
-<button class="neon-btn">Explore Designs</button>
+<button class="neon-btn">Explore</button>
 
 </section>
 
@@ -172,7 +179,7 @@ padding:40px;
 
 <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
 
-<h3>Cosmic Quote Hoodie</h3>
+<h3>Cosmic Hoodie</h3>
 
 <p>$39.99</p>
 
@@ -184,7 +191,7 @@ padding:40px;
 
 <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f">
 
-<h3>Creative Mind Poster</h3>
+<h3>Creative Poster</h3>
 
 <p>$14.99</p>
 
@@ -198,9 +205,9 @@ padding:40px;
 
 <section class="section" id="designer">
 
-<h2>Create Your Own Design</h2>
+<h2>Create Your Design</h2>
 
-<div class="shirt-preview">
+<div class="shirt-preview" id="designerCanvas">
 
 <img src="https://i.imgur.com/6qK0F8K.png">
 
@@ -208,21 +215,47 @@ padding:40px;
 
 </div>
 
-<input type="text" id="textInput" placeholder="Type your quote or design">
+<input type="text" id="textInput" placeholder="Enter quote or design text">
 
 <button class="neon-btn" onclick="updateDesign()">Apply</button>
 
+<br>
+
+<label>Text Color</label>
+
+<input type="color" id="textColor">
+
+<br>
+
+<button class="neon-btn" id="downloadBtn">Download Design</button>
+
 </section>
 
-<section class="section" id="quotes">
+<section class="section" id="humor">
 
-<h2>Quote Generator</h2>
+<h2>Humor Generators</h2>
 
 <div class="generator">
 
-<button class="neon-btn" onclick="quote()">Generate Quote</button>
+<button class="neon-btn" onclick="dadJoke()">Dad Joke</button>
 
-<p id="quote"></p>
+<p id="dad"></p>
+
+<button class="neon-btn" onclick="momJoke()">Mom Humor</button>
+
+<p id="mom"></p>
+
+<button class="neon-btn" onclick="sarcasm()">Sarcasm</button>
+
+<p id="sarcasm"></p>
+
+<button class="neon-btn" onclick="kidJoke()">Kid Joke</button>
+
+<p id="kid"></p>
+
+<button class="neon-btn" onclick="adult()">Edgy Humor</button>
+
+<p id="adult"></p>
 
 </div>
 
@@ -230,11 +263,11 @@ padding:40px;
 
 <section class="section" id="ideas">
 
-<h2>Creative Idea Generator</h2>
+<h2>Design Idea Generator</h2>
 
 <div class="generator">
 
-<button class="neon-btn" onclick="idea()">Generate Idea</button>
+<button class="neon-btn" onclick="idea()">Generate Design Idea</button>
 
 <p id="idea"></p>
 
@@ -254,27 +287,111 @@ function updateDesign(){
 
 const text=document.getElementById("textInput").value;
 
-document.getElementById("design-text").innerText=text;
+const color=document.getElementById("textColor").value;
+
+const element=document.getElementById("design-text");
+
+element.innerText=text;
+
+element.style.color=color;
 
 }
 
-function quote(){
+/* DOWNLOAD DESIGN */
 
-const quotes=[
+document.getElementById("downloadBtn").onclick=function(){
 
-"Dream bigger than yesterday",
+html2canvas(document.getElementById("designerCanvas")).then(canvas=>{
 
-"Your creativity is your power",
+const link=document.createElement("a");
 
-"Make the world colorful",
+link.download="design.png";
 
-"Stay cozy stay bold",
+link.href=canvas.toDataURL();
 
-"Art is freedom"
+link.click();
+
+});
+
+};
+
+/* HUMOR */
+
+function dadJoke(){
+
+const jokes=[
+
+"I used to hate facial hair… but it grew on me",
+
+"I'm not sleeping, I'm just charging my dad batteries",
+
+"I only know 25 letters of the alphabet. I don't know Y"
 
 ];
 
-document.getElementById("quote").innerText=quotes[Math.floor(Math.random()*quotes.length)];
+document.getElementById("dad").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function momJoke(){
+
+const jokes=[
+
+"If it's quiet, something is wrong",
+
+"Mom mode: activated",
+
+"I whisper snacks so the kids can't hear me panic"
+
+];
+
+document.getElementById("mom").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function sarcasm(){
+
+const jokes=[
+
+"I'm not arguing I'm explaining why I'm right",
+
+"My patience left the chat",
+
+"Sure I'd love to help… said no one ever"
+
+];
+
+document.getElementById("sarcasm").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function kidJoke(){
+
+const jokes=[
+
+"Why did the cookie go to the doctor? Because it felt crummy",
+
+"Why did the computer go to school? To improve its memory"
+
+];
+
+document.getElementById("kid").innerText=jokes[Math.floor(Math.random()*jokes.length)];
+
+}
+
+function adult(){
+
+const jokes=[
+
+"Running late is my cardio",
+
+"Powered by caffeine and poor decisions",
+
+"My brain has too many tabs open"
+
+];
+
+document.getElementById("adult").innerText=jokes[Math.floor(Math.random()*jokes.length)];
 
 }
 
@@ -282,15 +399,15 @@ function idea(){
 
 const ideas=[
 
-"Retro neon motivational design",
+"Retro neon motivational quote shirt",
 
-"Funny cat meme shirt",
+"Funny cat meme design",
 
-"Positive affirmation poster",
+"Minimalist affirmation poster",
 
-"Streetwear graffiti hoodie",
+"Sarcastic office humor tee",
 
-"Minimalist quote design"
+"Streetwear graffiti hoodie"
 
 ];
 
@@ -301,6 +418,4 @@ document.getElementById("idea").innerText=ideas[Math.floor(Math.random()*ideas.l
 </script>
 
 </body>
-
 </html>
-

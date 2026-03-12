@@ -333,9 +333,30 @@ cursor:move;
 
 /* EMAIL */
 
-function subscribe(){
+async function subscribe(){
 
-document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner";
+const email = document.getElementById("email").value;
+
+if(!email){
+document.getElementById("msg").innerText = "Please enter an email";
+return;
+}
+
+const { data, error } = await supabaseClient
+.from("subscribers")
+.insert([
+{
+email: email
+}
+]);
+
+if(error){
+console.log(error);
+document.getElementById("msg").innerText = "Error saving email";
+}else{
+document.getElementById("msg").innerText = "Welcome to Mimi's Cozy Corner!";
+document.getElementById("email").value = "";
+}
 
 }
 
@@ -588,3 +609,4 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 </body>
 </html>
+

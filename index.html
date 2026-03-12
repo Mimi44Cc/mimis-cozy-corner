@@ -334,29 +334,14 @@ cursor:move;
 
 /* EMAIL */
 
-async function subscribe(){
+function subscribe(){
 
 const email = document.getElementById("email").value;
 
-if(!email){
-document.getElementById("msg").innerText = "Please enter an email";
-return;
-}
+document.getElementById("msg").innerText = "Button is working";
 
-const { data, error } = await supabaseClient
-.from("subscribers")
-.insert([
-{
-email: email
-}
-]);
+console.log("Subscribe button clicked:", email);
 
-if(error){
-console.log(error);
-document.getElementById("msg").innerText = "Error saving email";
-}else{
-document.getElementById("msg").innerText = "Welcome to Mimi's Cozy Corner!";
-document.getElementById("email").value = "";
 }
 
 }

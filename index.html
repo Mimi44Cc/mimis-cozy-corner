@@ -4,10 +4,11 @@
 <head>
 
 <title>Mimi's Cozy Corner</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-
+sb_publishable_QbiTkloAXg_W9-abBvSasw_0zLXSfzO
 <style>
 
 body{
@@ -17,6 +18,8 @@ background:#020617;
 color:white;
 text-align:center;
 }
+
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -34,6 +37,8 @@ text-decoration:none;
 font-weight:600;
 }
 
+/* HERO */
+
 .hero{
 height:100vh;
 display:flex;
@@ -48,78 +53,102 @@ radial-gradient(circle at 50% 80%,#22d3ee,transparent 40%);
 }
 
 .hero h1{
-font-size:64px;
+font-size:60px;
+
 background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
+
 -webkit-background-clip:text;
+
 -webkit-text-fill-color:transparent;
+
 }
 
 .section{
 padding:90px 20px;
 }
 
+/* BUTTON */
+
 .neon-btn{
+
 padding:12px 24px;
+
 margin:10px;
+
 border:none;
+
 border-radius:10px;
+
 background:linear-gradient(90deg,#ff2e88,#8b5cf6,#22d3ee);
+
 color:white;
+
 cursor:pointer;
+
 }
 
-.feed{
-max-width:800px;
-margin:auto;
-}
+/* FEED */
 
 .feed-item{
+
 background:rgba(255,255,255,.08);
+
 padding:20px;
+
 margin:20px;
+
 border-radius:10px;
+
 }
 
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-max-width:1000px;
-margin:auto;
-}
-
-.card{
-background:rgba(255,255,255,.07);
-padding:20px;
-border-radius:12px;
-}
+/* DESIGNER */
 
 .designer{
+
 position:relative;
+
 width:320px;
+
 margin:auto;
+
 }
 
 .designer img{
+
 width:100%;
+
 }
 
 .design-text{
+
 position:absolute;
+
 top:120px;
+
 left:0;
+
 right:0;
+
 font-size:26px;
+
 font-weight:bold;
+
 cursor:move;
+
 }
 
 .design-image{
+
 position:absolute;
+
 top:140px;
+
 left:100px;
+
 width:100px;
+
 cursor:move;
+
 }
 
 </style>
@@ -130,7 +159,17 @@ cursor:move;
 
 <nav>
 
-<a href="#challenge">Challenge</a> <a href="#feed">Feed</a> <a href="#tools">Tools</a> <a href="#designer">Designer</a> <a href="#market">Marketplace</a> <a href="#store">Store</a>
+<a href="#challenge">Challenge</a>
+
+<a href="#feed">Feed</a>
+
+<a href="#tools">Tools</a>
+
+<a href="#designer">Designer</a>
+
+<a href="#market">Marketplace</a>
+
+<a href="#store">Store</a>
 
 </nav>
 
@@ -138,7 +177,7 @@ cursor:move;
 
 <h1>Mimi's Cozy Corner</h1>
 
-<p>Create • Share • Print Your Ideas</p>
+<p>Create • Share • Print</p>
 
 </section>
 
@@ -156,7 +195,7 @@ cursor:move;
 
 <section class="section" id="challenge">
 
-<h2>Daily Creative Challenge</h2>
+<h2>Daily Challenge</h2>
 
 <button class="neon-btn" onclick="challenge()">Generate Challenge</button>
 
@@ -178,7 +217,7 @@ cursor:move;
 
 <h2>Creative Generators</h2>
 
-<button class="neon-btn" onclick="quote()">Quote Generator</button>
+<button class="neon-btn" onclick="quote()">Quote</button>
 
 <p id="quote"></p>
 
@@ -201,6 +240,7 @@ cursor:move;
 <h2>Meme Creator</h2>
 
 <input id="top" placeholder="Top text">
+
 <input id="bottom" placeholder="Bottom text">
 
 <br><br>
@@ -222,9 +262,13 @@ cursor:move;
 <select id="productSelect">
 
 <option value="shirt">T-Shirt</option>
+
 <option value="hoodie">Hoodie</option>
+
 <option value="mug">Mug</option>
+
 <option value="poster">Poster</option>
+
 <option value="hat">Hat</option>
 
 </select>
@@ -267,37 +311,13 @@ cursor:move;
 
 </section>
 
-<section class="section">
-
-<h2>Design Competition</h2>
-
-<input id="compInput" placeholder="Enter design">
-
-<button class="neon-btn" onclick="submitComp()">Submit</button>
-
-<div id="competition"></div>
-
-</section>
-
 <section class="section" id="store">
 
 <h2>Store</h2>
 
-<div class="cards">
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" width="100%">
-
-<h3>Neon Dream Tee</h3>
-
-<p>$24.99</p>
+<p>Example Product</p>
 
 <div id="paypal"></div>
-
-</div>
-
-</div>
 
 </section>
 
@@ -314,7 +334,9 @@ cursor:move;
 /* EMAIL */
 
 function subscribe(){
+
 document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner";
+
 }
 
 /* CHALLENGE */
@@ -322,13 +344,19 @@ document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner";
 function challenge(){
 
 const c=[
+
 "Design a sarcastic shirt",
+
 "Create a viral meme",
+
 "Make a neon retro shirt",
+
 "Create a motivational quote design"
+
 ];
 
 document.getElementById("challengeText").innerText=
+
 c[Math.floor(Math.random()*c.length)];
 
 }
@@ -336,10 +364,15 @@ c[Math.floor(Math.random()*c.length)];
 /* FEED */
 
 const posts=[
+
 "Coffee First People Later",
+
 "Sarcasm Loading",
+
 "Powered by Chaos",
+
 "Running Late Is My Cardio"
+
 ];
 
 function feed(){
@@ -365,12 +398,17 @@ f.appendChild(div);
 function quote(){
 
 const q=[
-"Stay cozy stay bold",
-"Dream bigger than yesterday",
-"Creativity is your superpower"
+
+"Stay Cozy Stay Bold",
+
+"Dream Bigger",
+
+"Creativity Wins"
+
 ];
 
 document.getElementById("quote").innerText=
+
 q[Math.floor(Math.random()*q.length)];
 
 }
@@ -379,17 +417,16 @@ q[Math.floor(Math.random()*q.length)];
 
 function dad(){
 
-const j=[
-"I used to hate facial hair… but it grew on me"
-];
+document.getElementById("dad").innerText=
 
-document.getElementById("dad").innerText=j[0];
+"I used to hate facial hair but it grew on me";
 
 }
 
 function sarcasm(){
 
 document.getElementById("sarcasm").innerText=
+
 "I'm not arguing I'm explaining why I'm right";
 
 }
@@ -397,6 +434,7 @@ document.getElementById("sarcasm").innerText=
 function adult(){
 
 document.getElementById("adult").innerText=
+
 "Powered by caffeine and chaos";
 
 }
@@ -438,9 +476,11 @@ ctx.fillText(document.getElementById("bottom").value,200,380);
 function apply(){
 
 document.getElementById("designText").innerText=
+
 document.getElementById("shirtText").value;
 
 document.getElementById("designText").style.color=
+
 document.getElementById("color").value;
 
 }
@@ -466,6 +506,7 @@ reader.readAsDataURL(e.target.files[0]);
 interact('.design-text,.design-image').draggable({
 
 listeners:{
+
 move(event){
 
 const target=event.target;
@@ -481,6 +522,7 @@ target.setAttribute('data-x',x);
 target.setAttribute('data-y',y);
 
 }
+
 }
 
 });
@@ -490,9 +532,13 @@ target.setAttribute('data-y',y);
 const productImages={
 
 shirt:"https://i.imgur.com/6qK0F8K.png",
+
 hoodie:"https://i.imgur.com/Z6X7YkE.png",
+
 mug:"https://i.imgur.com/Yz9q7gU.png",
+
 poster:"https://i.imgur.com/e9yq9QZ.png",
+
 hat:"https://i.imgur.com/6lG3E7M.png"
 
 };
@@ -500,6 +546,7 @@ hat:"https://i.imgur.com/6lG3E7M.png"
 document.getElementById("productSelect").addEventListener("change",function(){
 
 document.getElementById("productBase").src=
+
 productImages[this.value];
 
 });
@@ -529,6 +576,13 @@ alert("Payment completed");
 }
 
 }).render('#paypal');
+/* SUPABASE CONNECTION */
+
+const SUPABASE_URL = "https://cnfpolswupwqvntjbjia.supabase.co";
+
+const SUPABASE_KEY = sb_publishable_QbiTkloAXg_W9-abBvSasw_0zLXSfzO;
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 </script>
 

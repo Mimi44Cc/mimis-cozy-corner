@@ -9,7 +9,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-sb_publishable_QbiTkloAXg_W9-abBvSasw_0zLXSfzO
+
 <style>
 
 body{
@@ -182,15 +182,26 @@ cursor:move;
 
 </section>
 
-function subscribe(){
+<section class="section">
 
-alert("Subscribe button clicked");
+<h2>Email Community</h2>
 
-const email = document.getElementById("email").value;
+<input id="email" placeholder="Enter email">
 
-document.getElementById("msg").innerText = "Email entered: " + email;
+<button class="neon-btn" onclick="subscribe()">Subscribe</button>
 
-}
+<p id="msg"></p>
+
+</section>
+
+</section>
+
+<h1>Mimi's Cozy Corner</h1>
+
+<p>Create • Share • Print</p>
+
+</section>
+
 <section class="section" id="challenge">
 
 <h2>Daily Challenge</h2>
@@ -326,23 +337,12 @@ document.getElementById("msg").innerText = "Email entered: " + email;
 </footer>
 
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
-
-/* EMAIL */
-
-function subscribe(){
-
-const email = document.getElementById("email").value;
-
-document.getElementById("msg").innerText = "Button is working";
-
-console.log("Subscribe button clicked:", email);
-
-}
-
 <script>
 
 
-}
+
+
+
 
 /* CHALLENGE */
 
@@ -581,7 +581,19 @@ alert("Payment completed");
 }
 
 }).render('#paypal');
+
+
 function subscribe(){
+
+alert("Subscribe button clicked");
+
+const email = document.getElementById("email").value;
+
+document.getElementById("msg").innerText =
+"Email entered: " + email;
+
+}
+
 
 alert("Subscribe button clicked");
 
@@ -595,4 +607,3 @@ document.getElementById("msg").innerText =
 
 </body>
 </html>
-

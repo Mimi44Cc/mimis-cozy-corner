@@ -46,6 +46,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+
 background:
 radial-gradient(circle at 20% 40%,#ff2e88,transparent 40%),
 radial-gradient(circle at 70% 60%,#8b5cf6,transparent 40%),
@@ -123,17 +124,19 @@ cursor:move;
 <body>
 
 <nav>
+
 <a href="#challenge">Challenge</a>
 <a href="#feed">Feed</a>
 <a href="#tools">Tools</a>
 <a href="#designer">Designer</a>
-<a href="#market">Marketplace</a>
-<a href="#store">Store</a>
+
 </nav>
 
 <section class="hero">
+
 <h1>Mimi's Cozy Corner</h1>
 <p>Create • Share • Print</p>
+
 </section>
 
 <section class="section">
@@ -186,43 +189,15 @@ cursor:move;
 
 </section>
 
-<section class="section">
-
-<h2>Meme Creator</h2>
-
-<input id="top" placeholder="Top text">
-<input id="bottom" placeholder="Bottom text">
-
-<br><br>
-
-<button class="neon-btn" onclick="meme()">Generate Meme</button>
-
-<br><br>
-
-<canvas id="canvas" width="400" height="400"></canvas>
-
-</section>
-
 <section class="section" id="designer">
 
 <h2>Design Your Product</h2>
-
-<select id="productSelect">
-<option value="shirt">T-Shirt</option>
-<option value="hoodie">Hoodie</option>
-<option value="mug">Mug</option>
-<option value="poster">Poster</option>
-<option value="hat">Hat</option>
-</select>
-
-<br><br>
 
 <div class="designer">
 
 <img id="productBase" src="https://i.imgur.com/6qK0F8K.png">
 
 <div id="designText" class="design-text"></div>
-
 <img id="designImage" class="design-image">
 
 </div>
@@ -249,8 +224,8 @@ cursor:move;
 
 /* SUPABASE CONNECTION */
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_URL = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNuZnBvbHN3dXB3cXZudGpiamlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNzgzMzIsImV4cCI6MjA4ODg1NDMzMn0.U3zAA8Wzig48_O-OCM0ES6ga7rgFofEYNdEKX8zgD0s";
+const SUPABASE_KEY = sb_publishable_QbiTkloAXg_W9-abBvSasw_0zLXSfzO;
 
 const supabaseClient = supabase.createClient(
 SUPABASE_URL,
@@ -263,21 +238,20 @@ async function subscribe(){
 
 const email = document.getElementById("email").value;
 
-if(!email){
-alert("Enter an email");
-return;
-}
-
 const { data, error } = await supabaseClient
 .from("subscribers")
 .insert([{ email: email }]);
 
 if(error){
+
 console.log(error);
-document.getElementById("msg").innerText="Error saving email";
+
+document.getElementById("msg").innerText="Database error";
+
 }else{
+
 document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner!";
-document.getElementById("email").value="";
+
 }
 
 }
@@ -286,15 +260,15 @@ document.getElementById("email").value="";
 
 function challenge(){
 
-const c=[
+const challenges=[
 "Design a sarcastic shirt",
 "Create a viral meme",
 "Make a neon retro shirt",
 "Create a motivational quote design"
 ];
 
-document.getElementById("challengeText").innerText=
-c[Math.floor(Math.random()*c.length)];
+document.getElementById("challengeText").innerText =
+challenges[Math.floor(Math.random()*challenges.length)];
 
 }
 
@@ -329,58 +303,29 @@ f.appendChild(div);
 
 function quote(){
 
-const q=[
+const quotes=[
 "Stay Cozy Stay Bold",
 "Dream Bigger",
 "Creativity Wins"
 ];
 
 document.getElementById("quote").innerText=
-q[Math.floor(Math.random()*q.length)];
+quotes[Math.floor(Math.random()*quotes.length)];
 
 }
 
 /* HUMOR */
 
 function dad(){
-document.getElementById("dad").innerText=
-"I used to hate facial hair but it grew on me";
+document.getElementById("dad").innerText="I used to hate facial hair but it grew on me";
 }
 
 function sarcasm(){
-document.getElementById("sarcasm").innerText=
-"I'm not arguing I'm explaining why I'm right";
+document.getElementById("sarcasm").innerText="I'm not arguing I'm explaining why I'm right";
 }
 
 function adult(){
-document.getElementById("adult").innerText=
-"Powered by caffeine and chaos";
-}
-
-/* MEME GENERATOR */
-
-function meme(){
-
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
-
-const img=new Image();
-img.src="https://i.imgflip.com/30b1gx.jpg";
-
-img.onload=function(){
-
-ctx.drawImage(img,0,0,400,400);
-
-ctx.font="30px Impact";
-ctx.fillStyle="white";
-ctx.strokeStyle="black";
-ctx.textAlign="center";
-
-ctx.fillText(document.getElementById("top").value,200,40);
-ctx.fillText(document.getElementById("bottom").value,200,380);
-
-};
-
+document.getElementById("adult").innerText="Powered by caffeine and chaos";
 }
 
 /* DESIGN TEXT */
@@ -427,26 +372,15 @@ target.setAttribute('data-x',x);
 target.setAttribute('data-y',y);
 
 }
+
 }
 
 });
 
-/* PRODUCT SWITCH */
+</script>
 
-const productImages={
-shirt:"https://i.imgur.com/6qK0F8K.png",
-hoodie:"https://i.imgur.com/Z6X7YkE.png",
-mug:"https://i.imgur.com/Yz9q7gU.png",
-poster:"https://i.imgur.com/e9yq9QZ.png",
-hat:"https://i.imgur.com/6lG3E7M.png"
-};
-
-document.getElementById("productSelect").addEventListener("change",function(){
-
-document.getElementById("productBase").src=
-productImages[this.value];
-
-});
+</body>
+</html>;
 
 </script>
 

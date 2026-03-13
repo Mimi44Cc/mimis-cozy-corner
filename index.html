@@ -492,19 +492,25 @@ document.getElementById("color").value;
 
 /* IMAGE UPLOAD */
 
-document.getElementById("upload").onchange=function(e){
+const uploadInput = document.getElementById("upload");
 
-const reader=new FileReader();
+if(uploadInput){
 
-reader.onload=function(){
+uploadInput.onchange = function(e){
 
-document.getElementById("designImage").src=reader.result;
+const reader = new FileReader();
+
+reader.onload = function(){
+
+document.getElementById("designImage").src = reader.result;
 
 };
 
 reader.readAsDataURL(e.target.files[0]);
 
 };
+
+}
 
 /* DRAG */
 
@@ -611,4 +617,6 @@ document.getElementById("msg").innerText =
 </script>
 
 </body>
+</html>
+
 </html>

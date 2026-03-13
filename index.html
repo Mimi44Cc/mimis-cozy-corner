@@ -548,13 +548,18 @@ hat:"https://i.imgur.com/6lG3E7M.png"
 
 };
 
-document.getElementById("productSelect").addEventListener("change",function(){
+const productSelect = document.getElementById("productSelect");
 
-document.getElementById("productBase").src=
+if(productSelect){
 
+productSelect.addEventListener("change",function(){
+
+document.getElementById("productBase").src =
 productImages[this.value];
 
 });
+
+}
 
 /* PAYPAL */
 

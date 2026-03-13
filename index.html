@@ -581,14 +581,16 @@ alert("Payment completed");
 }
 
 }).render('#paypal');
-/* SUPABASE CONNECTION */
+function subscribe(){
 
-const SUPABASE_URL = "https://cnfpolswupwqvntjbjia.supabase.co";
+alert("Subscribe button clicked");
 
-const SUPABASE_KEY = sb_publishable_QbiTkloAXg_W9-abBvSasw_0zLXSfzO;
+const email = document.getElementById("email").value;
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-)
+document.getElementById("msg").innerText =
+"Email entered: " + email;
+
+}
 </script>
 
 </body>

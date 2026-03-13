@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <style>
 
@@ -45,7 +46,6 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-
 background:
 radial-gradient(circle at 20% 40%,#ff2e88,transparent 40%),
 radial-gradient(circle at 70% 60%,#8b5cf6,transparent 40%),
@@ -132,10 +132,8 @@ cursor:move;
 </nav>
 
 <section class="hero">
-
 <h1>Mimi's Cozy Corner</h1>
 <p>Create • Share • Print</p>
-
 </section>
 
 <section class="section">
@@ -241,50 +239,50 @@ cursor:move;
 
 </section>
 
-<section class="section" id="market">
-
-<h2>Creator Marketplace</h2>
-
-<input id="ideaInput" placeholder="Submit design idea">
-
-<button class="neon-btn" onclick="submitIdea()">Submit</button>
-
-<div id="ideas"></div>
-
-</section>
-
-<section class="section" id="store">
-
-<h2>Store</h2>
-
-<div id="paypal"></div>
-
-</section>
-
 <footer>
 
 <p>© Mimi's Cozy Corner</p>
 
 </footer>
 
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
-
 <script>
 
-/* EMAIL */
+/* SUPABASE CONNECTION */
 
-function subscribe(){
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+const supabaseClient = supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+/* EMAIL SUBSCRIBE */
+
+async function subscribe(){
 
 const email = document.getElementById("email").value;
 
-document.getElementById("msg").innerText =
-"Email entered: " + email;
+if(!email){
+alert("Enter an email");
+return;
+}
 
-alert("Subscribe button clicked");
+const { data, error } = await supabaseClient
+.from("subscribers")
+.insert([{ email: email }]);
+
+if(error){
+console.log(error);
+document.getElementById("msg").innerText="Error saving email";
+}else{
+document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner!";
+document.getElementById("email").value="";
+}
 
 }
 
-/* CHALLENGE */
+/* DAILY CHALLENGE */
 
 function challenge(){
 
@@ -295,7 +293,7 @@ const c=[
 "Create a motivational quote design"
 ];
 
-document.getElementById("challengeText").innerText =
+document.getElementById("challengeText").innerText=
 c[Math.floor(Math.random()*c.length)];
 
 }
@@ -337,7 +335,7 @@ const q=[
 "Creativity Wins"
 ];
 
-document.getElementById("quote").innerText =
+document.getElementById("quote").innerText=
 q[Math.floor(Math.random()*q.length)];
 
 }
@@ -359,7 +357,7 @@ document.getElementById("adult").innerText=
 "Powered by caffeine and chaos";
 }
 
-/* MEME */
+/* MEME GENERATOR */
 
 function meme(){
 
@@ -367,7 +365,6 @@ const canvas=document.getElementById("canvas");
 const ctx=canvas.getContext("2d");
 
 const img=new Image();
-
 img.src="https://i.imgflip.com/30b1gx.jpg";
 
 img.onload=function(){
@@ -375,15 +372,11 @@ img.onload=function(){
 ctx.drawImage(img,0,0,400,400);
 
 ctx.font="30px Impact";
-
 ctx.fillStyle="white";
-
 ctx.strokeStyle="black";
-
 ctx.textAlign="center";
 
 ctx.fillText(document.getElementById("top").value,200,40);
-
 ctx.fillText(document.getElementById("bottom").value,200,380);
 
 };
@@ -409,9 +402,7 @@ document.getElementById("upload").onchange=function(e){
 const reader=new FileReader();
 
 reader.onload=function(){
-
 document.getElementById("designImage").src=reader.result;
-
 };
 
 reader.readAsDataURL(e.target.files[0]);
@@ -436,7 +427,6 @@ target.setAttribute('data-x',x);
 target.setAttribute('data-y',y);
 
 }
-
 }
 
 });
@@ -458,33 +448,8 @@ productImages[this.value];
 
 });
 
-/* PAYPAL */
-
-paypal.Buttons({
-
-createOrder:function(data,actions){
-
-return actions.order.create({
-
-purchase_units:[{amount:{value:'24.99'}}]
-
-});
-
-},
-
-onApprove:function(data,actions){
-
-return actions.order.capture().then(function(){
-
-alert("Payment completed");
-
-});
-
-}
-
-}).render('#paypal');
-
 </script>
 
 </body>
 </html>
+

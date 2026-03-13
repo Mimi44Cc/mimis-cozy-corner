@@ -182,18 +182,15 @@ cursor:move;
 
 </section>
 
-<section class="section">
+function subscribe(){
 
-<h2>Email Community</h2>
+alert("Subscribe button clicked");
 
-<input id="email" placeholder="Enter email">
+const email = document.getElementById("email").value;
 
-<button class="neon-btn" onclick="subscribe()">Subscribe</button>
+document.getElementById("msg").innerText = "Email entered: " + email;
 
-<p id="msg"></p>
-
-</section>
-
+}
 <section class="section" id="challenge">
 
 <h2>Daily Challenge</h2>

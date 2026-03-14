@@ -241,24 +241,31 @@ async function subscribe(){
 
 const email = document.getElementById("email").value;
 
-if(!email){
-alert("Please enter an email");
-return;
-}
+console.log("Email submitted:", email);
 
-const { data, error } = await supabaseClient
+try{
+
+const response = await supabaseClient
 .from("subscribers")
 .insert([{ email: email }]);
 
-if(error){
-console.error(error);
-document.getElementById("msg").innerText="Database error";
+console.log("Response:", response);
+
+if(response.error){
+console.log("Error:", response.error);
+alert("Database error — check console");
 }else{
-document.getElementById("msg").innerText="Welcome to Mimi's Cozy Corner!";
-document.getElementById("email").value="";
+alert("Email saved successfully!");
+}
+
+}catch(err){
+
+console.log("Fatal error:", err);
+
 }
 
 }
+
 
 /* DAILY CHALLENGE */
 
